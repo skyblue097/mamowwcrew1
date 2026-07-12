@@ -1,0 +1,3906 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>mamoww crew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6EF;
+    --white:#FFFFFF;
+    --pink:#FF8FB1;
+    --pink-dark:#E85D8A;
+    --pink-soft:#FFE3EC;
+    --pink-line:#E2E2E2;
+    --text:#4A3238;
+    --text-muted:#A6858E;
+    --success:#5FAE7A;
+    --success-soft:#E7F6EC;
+    --danger:#E15C5C;
+    --danger-soft:#FBE7E7;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; height:100%;}
+  body{
+    background:var(--white);
+    color:var(--text);
+    font-family:'Sarabun', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .screen{
+    display:none;
+    min-height:100vh;
+    padding-bottom:48px;
+    animation:fadeIn .22s ease;
+  }
+  .screen.active{display:block;}
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ---------- top bars ---------- */
+  .home-header{padding:20px 20px 4px; text-align:center; position:relative; min-height:30px;}
+
+  .settings-icon-btn{
+    position:absolute;
+    top:20px; right:16px;
+    z-index:3;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--white); border:1px solid #E2E2E2;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.06);
+  }
+  .settings-icon-btn:active{transform:scale(.94);}
+
+  .store-banner{
+    position:relative;
+    background:linear-gradient(120deg, #A7B8FF 0%, #FFB6D6 35%, #FFE6A7 70%, #BFE9FF 100%);
+    border-radius:24px;
+    margin:0 0 18px;
+    padding:18px;
+    box-shadow:0 12px 28px rgba(120,100,180,0.18);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-height:110px;
+    overflow:hidden;
+  }
+  .banner-decor{
+    font-size:13px; opacity:.85; letter-spacing:2px;
+    margin-bottom:4px;
+  }
+  .banner-edit-btn{
+    position:absolute; top:10px; right:10px;
+    width:30px; height:30px; border-radius:50%;
+    background:rgba(255,255,255,0.85);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; cursor:pointer; border:none;
+    box-shadow:0 3px 8px rgba(0,0,0,0.1);
+  }
+  .banner-edit-btn:active{transform:scale(.92);}
+  .banner-image-wrap{
+    position:relative;
+    flex-shrink:0;
+    width:92px; height:92px;
+  }
+  .banner-image{
+    width:100%; height:100%; object-fit:cover;
+    border-radius:18px; border:2px solid #fff;
+    background:#fff;
+    display:block;
+  }
+  .banner-image-placeholder{
+    width:100%; height:100%;
+    border-radius:18px; border:2px solid #fff;
+    background:rgba(255,255,255,0.45);
+    display:flex; align-items:center; justify-content:center;
+    font-size:34px;
+  }
+  .banner-text{flex:1; min-width:0;}
+  .banner-text h1{
+    font-family:'Sarabun', sans-serif; font-weight:700; font-size:18px;
+    color:#4A5FD9; margin:0 0 8px; line-height:1.2;
+    word-break:break-word;
+  }
+  .banner-subtitle{
+    display:inline-block;
+    background:#fff; color:#7C6FBF;
+    font-size:11px; font-weight:600;
+    padding:6px 13px; border-radius:100px;
+    max-width:100%;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+
+  .settings-icon-btn-inline{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--white); border:1px solid #E2E2E2;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    flex-shrink:0;
+    box-shadow:0 4px 10px rgba(0,0,0,0.06);
+  }
+  .settings-icon-btn-inline:active{transform:scale(.94);}
+
+  .sub-header{
+    display:flex; align-items:center; gap:10px;
+    padding:20px 16px 16px;
+    max-width:480px; margin:0 auto;
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:20;
+    background:var(--white);
+    box-sizing:border-box;
+    min-height:96px;
+  }
+  .screen.has-subheader{padding-top:100px;}
+  .back-btn{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--white); border:1px solid var(--pink-line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:var(--pink-dark);
+    flex-shrink:0; cursor:pointer;
+  }
+  .back-btn:active{transform:scale(.94);}
+  .sub-header h2{
+    font-family:'Sarabun', sans-serif; font-weight:700; font-size:18px; margin:4px 0 0;
+    flex:1;
+    line-height:1.3;
+  }
+  .sub-header .crumb{font-size:11.5px; color:var(--text-muted); margin:0; flex:1; display:block; line-height:1.3;}
+  .sub-header-titles{flex:1; display:flex; flex-direction:column; justify-content:center; min-width:0;}
+
+  .add-icon-btn{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--white);
+    border:1px solid #E2E2E2;
+    color:var(--pink-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    line-height:1;
+    flex-shrink:0;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.06);
+  }
+  .add-icon-btn:active{transform:scale(.94);}
+
+  main{
+    max-width:480px; margin:0 auto; padding:4px 16px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+
+  /* ---------- menu list rows ---------- */
+  .menu-row{
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:20px;
+    padding:16px 18px;
+    display:flex; align-items:center; gap:14px;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(232,93,138,0.06);
+    transition:transform .08s ease;
+  }
+  #homeMenuList, #canvaMenuList, #msMenuList{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .menu-row:active{transform:scale(.98);}
+  .menu-row .icon{
+    width:44px; height:44px; border-radius:14px;
+    background:var(--pink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-size:21px; flex-shrink:0;
+  }
+  .menu-row .label{flex:1;}
+  .menu-row .label .name{
+    font-family:'Sarabun', sans-serif; font-weight:600; font-size:15.5px; margin-bottom:2px;
+  }
+  .menu-row .label .desc{font-size:12px; color:var(--text-muted);}
+  .menu-row .chevron{color:var(--pink-line); font-size:18px; flex-shrink:0;}
+
+  .section-label{
+    font-family:'Sarabun', sans-serif; font-weight:600; font-size:12.5px;
+    color:var(--text-muted); margin:8px 4px -2px;
+  }
+  .section-header-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin:8px 4px -2px;
+  }
+  .section-header-row .add-icon-btn{ width:30px; height:30px; font-size:13px; }
+
+  .dashboard-toggle{
+    font-family:'Sarabun', sans-serif; font-size:11.5px; font-weight:600;
+    color:var(--pink-dark); cursor:pointer; padding:4px 8px;
+  }
+
+  #dashboardList{
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom:14px;
+  }
+  .dash-row{
+    display:flex; align-items:center; gap:10px;
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:14px;
+    padding:10px 12px;
+    cursor:pointer;
+  }
+  .dash-row:active{transform:scale(.98);}
+  .dash-row .dash-dot{
+    width:10px; height:10px; border-radius:50%; flex-shrink:0;
+  }
+  .dash-row .dash-name{
+    flex:1; min-width:0;
+    font-family:'Sarabun', sans-serif; font-size:13px; font-weight:600; color:var(--text);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .dash-row .dash-source{
+    font-size:10.5px; color:var(--text-muted); flex-shrink:0;
+  }
+  .dash-row .dash-count{
+    font-family:'Kanit', 'Sarabun', sans-serif; font-size:11.5px; font-weight:600;
+    flex-shrink:0; min-width:52px; text-align:right;
+  }
+  .dash-row .dash-status{
+    font-size:10px; font-weight:600; padding:3px 8px; border-radius:100px; flex-shrink:0; white-space:nowrap;
+  }
+  .dash-status-ok{background:var(--success-soft); color:var(--success);}
+  .dash-status-full{background:var(--danger-soft); color:var(--danger);}
+  .dash-empty{
+    text-align:center; padding:16px; font-size:12.5px; color:var(--text-muted);
+    background:var(--white); border:1px solid var(--pink-line); border-radius:14px; margin-bottom:14px;
+  }
+  .dash-filter-tabs{
+    display:flex; gap:6px; flex-wrap:wrap;
+    margin:8px 0 10px;
+  }
+  .dash-tab{
+    font-family:'Sarabun', sans-serif; font-size:11.5px; font-weight:600;
+    padding:6px 12px; border-radius:100px; border:1px solid var(--pink-line);
+    background:var(--white); color:var(--text-muted); cursor:pointer;
+    white-space:nowrap;
+  }
+  .dash-tab-active{
+    background:var(--pink-dark); color:#fff; border-color:var(--pink-dark);
+  }
+  .dash-group-label{
+    font-family:'Sarabun', sans-serif; font-weight:600; font-size:12px;
+    color:var(--text-muted); margin:10px 2px 4px;
+  }
+  .dash-group-label:first-child{margin-top:0;}
+
+  .settings-row{
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:20px;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+    box-shadow:0 6px 18px rgba(232,93,138,0.06);
+  }
+  .settings-row .icon{
+    width:40px; height:40px; border-radius:12px;
+    background:var(--pink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; flex-shrink:0;
+  }
+  .settings-fields{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    min-width:0;
+  }
+  .settings-name-input{
+    border:1.5px solid var(--pink-line);
+    background:var(--cream);
+    border-radius:12px;
+    padding:10px 12px;
+    font-family:'Sarabun', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+    outline:none;
+    min-width:0;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .settings-name-input:focus{border-color:var(--pink); background:var(--white);}
+  .settings-desc-input{
+    border:1.5px solid var(--pink-line);
+    background:var(--cream);
+    border-radius:12px;
+    padding:8px 12px;
+    font-family:'Sarabun', sans-serif;
+    font-size:12px;
+    color:var(--text-muted);
+    outline:none;
+    min-width:0;
+    width:100%;
+    box-sizing:border-box;
+  }
+  .settings-desc-input:focus{border-color:var(--pink); background:var(--white); color:var(--text);}
+  .reorder-btns{
+    display:flex; flex-direction:column; gap:4px; flex-shrink:0;
+  }
+  .reorder-btns button{
+    width:30px; height:24px;
+    border-radius:8px;
+    background:var(--cream);
+    color:var(--text-muted);
+    font-size:11px;
+    display:flex; align-items:center; justify-content:center;
+    border:none;
+    cursor:pointer;
+    font-family:'Sarabun', sans-serif;
+  }
+  .reorder-btns button:disabled{opacity:.35; cursor:not-allowed;}
+  .reorder-btns button:active:not(:disabled){transform:scale(.92);}
+  .settings-delete-btn{
+    width:28px; height:28px; border-radius:50%;
+    background:var(--danger-soft); color:var(--danger);
+    border:none; font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0;
+  }
+  .settings-delete-btn:disabled{opacity:.3; cursor:not-allowed;}
+  .settings-delete-btn:active:not(:disabled){transform:scale(.92);}
+
+  /* ---------- card (shared) ---------- */
+  .card{
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:20px;
+    padding:14px;
+    box-shadow:0 6px 20px rgba(232,93,138,0.07);
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute; left:0; top:0; bottom:0; width:5px;
+    background:var(--accent, var(--pink));
+  }
+  .card h2{
+    font-family:'Sarabun', sans-serif; font-weight:600; font-size:15.5px;
+    margin:0 0 14px; display:flex; align-items:center; gap:8px;
+  }
+
+  .link-display{
+    background:var(--cream);
+    border:1.5px solid var(--pink-line);
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:14px;
+    word-break:break-all;
+    margin-bottom:12px;
+    color:var(--text);
+    min-height:22px;
+  }
+  .link-display.empty{color:var(--text-muted); font-style:italic;}
+
+  .field{margin-bottom:12px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{
+    display:block; font-size:12.5px; color:var(--text-muted);
+    margin-bottom:6px; font-weight:500;
+  }
+  .field input, .field textarea, .field select{
+    width:100%;
+    border:1.5px solid var(--pink-line);
+    background:var(--cream);
+    border-radius:14px;
+    padding:13px 14px;
+    font-family:'Sarabun', sans-serif;
+    font-size:15px;
+    color:var(--text);
+    outline:none;
+  }
+  .field textarea{font-size:13.5px; line-height:1.6; resize:vertical;}
+  .field input:focus, .field textarea:focus, .field select:focus{border-color:var(--pink); background:var(--white);}
+  .hint{font-size:11px; color:var(--text-muted); margin-top:4px; line-height:1.5;}
+  #bannerEditOverlay .field{margin-bottom:18px;}
+  #bannerEditOverlay .sheet-handle{margin-bottom:18px;}
+  #bannerEditOverlay h3{margin-bottom:16px;}
+  .checkline{display:flex; align-items:center; gap:8px; font-size:13px; margin-top:4px; color:var(--text);}
+
+  button{font-family:'Sarabun', sans-serif; border:none; cursor:pointer; -webkit-appearance:none;}
+  .btn{
+    padding:14px; border-radius:15px; font-size:14.5px; font-weight:600;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    transition:transform .08s ease;
+    width:100%;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+    color:#fff; box-shadow:0 8px 18px rgba(232,93,138,0.30);
+  }
+  .btn-secondary{background:var(--pink-soft); color:var(--pink-dark);}
+  .btn-save-style{background:#CFEFD9; color:#3E8B5A; box-shadow:none;}
+  .btn-copylink-style{background:#FF9FBB; color:#fff; box-shadow:none;}
+  .btn-copymsg-style{background:#8E7CD9; color:#fff; box-shadow:none;}
+  .btn-md{padding:11px; font-size:13.5px; border-radius:14px;}
+  .btn-muted{background:var(--cream); color:var(--text-muted);}
+  .btn-danger{background:var(--danger-soft); color:var(--danger);}
+  .btn-ghost{background:transparent; color:var(--text-muted); font-weight:500; font-size:13px; padding:8px; width:auto;}
+  .btn-row{display:flex; gap:8px; margin-top:2px;}
+  .btn-row .btn{flex:1;}
+  .btn-full-width{width:100%;}
+
+  /* ---------- package tool specific ---------- */
+  .add-btn{
+    width:100%; padding:14px; border-radius:16px;
+    border:1.5px dashed var(--pink); background:var(--white);
+    color:var(--pink-dark); font-family:'Sarabun', sans-serif;
+    font-weight:600; font-size:14.5px; cursor:pointer;
+  }
+  .add-btn:active{transform:scale(.98);}
+
+  .card-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:9px; gap:8px;
+  }
+  .card-title{
+    font-family:'Sarabun', sans-serif; font-weight:700; font-size:15px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .status-pill{
+    font-size:10px; font-weight:500; padding:3px 8px; border-radius:100px; white-space:nowrap;
+  }
+  .pkg-reorder-btns{
+    display:flex; gap:3px; flex-shrink:0;
+  }
+  .pkg-reorder-btns button{
+    width:22px; height:22px;
+    border-radius:7px;
+    background:var(--cream);
+    color:var(--text-muted);
+    border:none;
+    font-size:10px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .pkg-reorder-btns button:disabled{opacity:.3; cursor:not-allowed;}
+  .pkg-reorder-btns button:active:not(:disabled){transform:scale(.9);}
+  .status-ok{background:var(--success-soft); color:var(--success);}
+  .status-full{background:var(--danger-soft); color:var(--danger);}
+
+  .info-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; margin-bottom:12px;
+  }
+  .info-item .k{font-size:11px; color:var(--text-muted); margin-bottom:2px;}
+  .info-item .v{font-size:13.5px; font-weight:500; word-break:break-all;}
+
+  .usage-row{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--cream); border-radius:14px; padding:10px 14px; margin-bottom:12px;
+  }
+  .usage-count{font-family:'Sarabun', sans-serif; font-weight:700; font-size:15px;}
+  .usage-bar-wrap{
+    flex:1; height:6px; background:var(--pink-line); border-radius:6px;
+    margin:0 12px; overflow:hidden;
+  }
+  .usage-bar{height:100%; background:var(--accent, var(--pink)); border-radius:6px; transition:width .25s;}
+
+  .usage-row-sm{padding:7px 12px; margin-bottom:12px;}
+  .usage-count-sm{font-size:12px;}
+  .usage-row-sm .usage-bar-wrap{height:4px; margin:0 10px;}
+
+  .tpl-preview{
+    background:var(--cream);
+    border:1.5px solid var(--pink-line);
+    border-radius:14px;
+    padding:12px 14px;
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--text);
+    white-space:pre-line;
+    word-break:break-word;
+    margin-bottom:12px;
+  }
+
+  .pkg-panel{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:16px;
+    padding:11px;
+    margin-bottom:10px;
+  }
+  .pkg-panel-text{
+    flex:1;
+    min-width:0;
+    display:flex;
+    align-items:center;
+    font-family:'Sarabun', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text);
+    line-height:1.5;
+    white-space:pre-line;
+    word-break:break-word;
+    max-height:220px;
+    overflow-y:auto;
+  }
+  .pkg-panel-line{
+    font-family:'Sarabun', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text);
+    word-break:break-word;
+    line-height:1.35;
+  }
+  .pkg-panel-divider{
+    border-top:1.5px dashed var(--pink-line);
+    width:100%;
+  }
+  .pkg-note{
+    margin-top:10px;
+    background:#FFF6D6;
+    border:1px solid #F0DFA0;
+    border-radius:12px;
+    padding:9px 12px;
+    font-family:'Sarabun', sans-serif;
+    font-size:12px;
+    color:#7A6A2E;
+    line-height:1.5;
+    white-space:pre-line;
+    word-break:break-word;
+  }
+  .pkg-teamlink-toggle{
+    width:100%;
+    margin-top:10px;
+    background:var(--cream);
+    border:1px solid var(--pink-line);
+    border-radius:12px;
+    padding:14px 16px;
+    font-family:'Sarabun', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--pink-dark);
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer;
+  }
+  .pkg-teamlink-arrow{font-size:10px;}
+  .pkg-teamlink-panel{
+    margin-top:8px;
+    background:var(--white);
+    border:1px solid var(--pink-line);
+    border-radius:12px;
+    padding:10px;
+  }
+  .sv-shared-count{
+    font-family:'Sarabun', sans-serif;
+    font-size:12px; font-weight:600; color:var(--text);
+    background:var(--cream);
+    border-radius:10px;
+    padding:6px 10px;
+    margin-bottom:10px;
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+  }
+  .sv-shared-count-label{font-size:10.5px; font-weight:500; color:var(--text-muted);}
+  .pkg-stat-badge{
+    flex-shrink:0;
+    width:88px;
+    background:linear-gradient(160deg, #C9B6F5 0%, #A78BFA 100%);
+    border-radius:14px;
+    padding:9px 6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s;
+    text-align:center;
+    border:none;
+  }
+  .pkg-stat-badge:active{transform:scale(.96);}
+  .pkg-stat-badge:disabled{opacity:.55; cursor:not-allowed;}
+  .pkg-stat-icon{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+  }
+  .pkg-stat-label{
+    font-family:'Sarabun', sans-serif;
+    font-size:8.5px; color:#F3EEFF; line-height:1.25; font-weight:500;
+  }
+  .pkg-stat-value{font-family:'Sarabun', sans-serif; color:#fff;}
+  .pkg-stat-value .big{font-size:16px; font-weight:700;}
+  .pkg-stat-value .small{font-size:10px; opacity:.85;}
+
+  .btn-pink-style{background:#FFD9E8; color:#D1477A;}
+  .btn-peach-style{background:#FFE7CB; color:#C4791F;}
+  .btn-blue-style{background:#DCE7FB; color:#3E6FB8;}
+
+  .sv-divider{
+    border-top:1.5px dashed var(--pink-line);
+    margin:18px 0 12px;
+    padding-top:12px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text-muted);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .swatches{display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; align-items:center;}
+  .swatch{width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent;}
+  .swatch.selected{border-color:var(--text);}
+
+  .pkg-color-dot{
+    display:inline-block;
+    width:14px; height:14px;
+    border-radius:50%;
+    flex-shrink:0;
+    box-shadow:0 0 0 2px var(--white), 0 0 0 3px var(--pink-line);
+  }
+
+  .color-input-row{display:flex; align-items:center; gap:10px; margin-top:8px;}
+  .color-input-row input[type="color"]{
+    -webkit-appearance:none; appearance:none;
+    width:44px; height:44px; border:none; border-radius:12px;
+    padding:0; cursor:pointer; background:none;
+  }
+  .color-input-row input[type="color"]::-webkit-color-swatch-wrapper{padding:0;}
+  .color-input-row input[type="color"]::-webkit-color-swatch{border:1.5px solid var(--pink-line); border-radius:12px;}
+  .color-input-row span{font-size:12.5px; color:var(--text-muted);}
+
+  .two-col-row{
+    display:flex;
+    gap:10px;
+  }
+  .two-col-row > div{flex:1;}
+
+  .color-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:6px;
+  }
+  .color-swatch-field{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    font-size:10.5px;
+    color:var(--text-muted);
+    text-align:center;
+    width:64px;
+  }
+  .color-swatch-field input[type="color"]{
+    -webkit-appearance:none; appearance:none;
+    width:40px; height:40px; border:none; border-radius:12px;
+    padding:0; cursor:pointer; background:none;
+  }
+  .color-swatch-field input[type="color"]::-webkit-color-swatch-wrapper{padding:0;}
+  .color-swatch-field input[type="color"]::-webkit-color-swatch{border:1.5px solid var(--pink-line); border-radius:12px;}
+
+  .empty-state{text-align:center; padding:30px 20px; color:var(--text-muted); font-size:13.5px;}
+
+  .btn-compact{
+    padding:8px 5px;
+    font-size:11.5px;
+    border-radius:11px;
+    gap:4px;
+  }
+
+  #packageList{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  #msPackageList{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  #shopVariantList{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  /* ---------- overlays (shared) ---------- */
+  .sheet-overlay{
+    position:fixed; inset:0; background:rgba(74,50,56,0.35);
+    display:flex; align-items:flex-end; justify-content:center;
+    z-index:50; opacity:0; pointer-events:none; transition:opacity .2s;
+  }
+  .sheet-overlay.show{opacity:1; pointer-events:auto;}
+  .sheet{
+    background:var(--white); width:100%; max-width:480px;
+    border-radius:24px 24px 0 0; padding:20px 20px 28px;
+    transform:translateY(20px); transition:transform .25s;
+    max-height:82vh; display:flex; flex-direction:column; overflow-y:auto;
+  }
+  .sheet-overlay.show .sheet{transform:translateY(0);}
+  .sheet-handle{width:40px; height:4px; background:var(--pink-line); border-radius:10px; margin:0 auto 14px;}
+  .sheet h3{font-family:'Sarabun', sans-serif; font-size:16px; margin:0 0 12px;}
+  .sheet pre{
+    white-space:pre-wrap; word-break:break-word; background:var(--cream);
+    border-radius:14px; padding:14px; font-family:'Sarabun', sans-serif;
+    font-size:13.5px; line-height:1.6; color:var(--text);
+    margin:0 0 16px; overflow-y:auto; flex:1;
+  }
+
+  .toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
+    background:var(--text); color:#fff; padding:12px 20px; border-radius:100px;
+    font-size:13.5px; display:flex; align-items:center; gap:8px;
+    opacity:0; transition:opacity .25s, transform .25s; z-index:100;
+    box-shadow:0 10px 24px rgba(0,0,0,0.2); max-width:88%; text-align:center;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ============ Screen 1: หน้าเมนูหลัก ============ -->
+<section class="screen active" id="screen-home">
+  <main>
+    <div class="store-banner" id="storeBanner">
+      <div class="settings-icon-btn" id="homeSettingsBtn" title="ตั้งค่าเมนู">⚙️</div>
+      <div class="banner-image-wrap">
+        <img class="banner-image" id="bannerImage" src="" alt="" style="display:none;">
+        <div class="banner-image-placeholder" id="bannerImagePlaceholder">🐾</div>
+      </div>
+      <div class="banner-text">
+        <div class="banner-decor">⭐ ✨</div>
+        <h1 id="bannerTitle">mamoww crew</h1>
+        <div class="banner-subtitle" id="bannerSubtitle">เลือกบริการที่ต้องการ</div>
+      </div>
+    </div>
+
+    <div class="section-label">บริการทั้งหมด</div>
+    <div id="homeMenuList"></div>
+
+    <div class="section-header-row" style="margin-top:14px;">
+      <div class="section-label" style="margin:0;">📊 แดชบอร์ด — พร้อมส่งไหม</div>
+      <div class="dashboard-toggle" id="dashboardToggle">ซ่อน</div>
+    </div>
+    <div id="dashFilterTabs" class="dash-filter-tabs"></div>
+    <div id="dashboardList"></div>
+  </main>
+</section>
+
+<!-- Banner edit sheet -->
+<div class="sheet-overlay" id="bannerEditOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>✏️ แก้ไขแบนเนอร์หัวข้อ</h3>
+    <div class="field">
+      <label>รูปภาพ (อัปโหลดจากเครื่องได้เลย ขนาดอิสระ)</label>
+      <input type="file" id="bannerImageInput" accept="image/*">
+      <div class="hint">รูปจะถูกย่อขนาดอัตโนมัติก่อนบันทึก ไม่ต้องแนบลิงก์</div>
+    </div>
+    <div class="field">
+      <label>ชื่อ/หัวข้อ</label>
+      <input id="bannerTitleInput" type="text" placeholder="mamoww crew">
+    </div>
+    <div class="field">
+      <label>คำอธิบายย่อย</label>
+      <input id="bannerSubtitleInput" type="text" placeholder="เลือกบริการที่ต้องการ">
+    </div>
+    <div class="field">
+      <label>สีพื้นหลังแบนเนอร์ (ไล่สีอิสระ)</label>
+      <div class="color-grid">
+        <div class="color-swatch-field">
+          <input type="color" id="bannerColorStartInput" value="#A7B8FF">
+          <span>สีต้น</span>
+        </div>
+        <div class="color-swatch-field">
+          <input type="color" id="bannerColorEndInput" value="#BFE9FF">
+          <span>สีปลาย</span>
+        </div>
+        <div class="color-swatch-field">
+          <input type="color" id="bannerTitleColorInput" value="#4A5FD9">
+          <span>สีตัวอักษรชื่อ</span>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>หรือเปลี่ยนพื้นหลังเป็นรูปภาพแทนไล่สี</label>
+      <input type="file" id="bannerBgImageInput" accept="image/*">
+      <div class="hint">แนะนำขนาดรูป <b>1024 x 416 px</b> (อัตราส่วน 2.46 : 1 เท่ากับสัดส่วนแบนเนอร์) เพื่อความคมชัดสูงสุด ไม่ต้องแนบลิงก์ ระบบย่อให้อัตโนมัติ</div>
+      <button type="button" class="btn btn-ghost" id="bannerBgClearBtn" style="margin-top:8px; width:auto; padding:8px 14px;">🗑️ ล้างรูปพื้นหลัง กลับไปใช้ไล่สี</button>
+    </div>
+    <div class="btn-row" style="margin-top:16px;">
+      <button class="btn btn-muted" id="bannerCancelBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="bannerSaveBtn">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Screen 2: หมวด Canva ============ -->
+<section class="screen has-subheader" id="screen-canva">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-home"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew</p>
+      <h2>🎨 Canva</h2>
+    </div>
+    <div class="settings-icon-btn-inline" id="canvaSettingsBtn" title="ตั้งค่าเมนู">⚙️</div>
+  </div>
+  <main>
+    <div class="section-label">ตัวเลือก Canva</div>
+    <div id="canvaMenuList"></div>
+  </main>
+</section>
+
+<!-- ============ Screen 3: เมลร้านส่วนตัว (เครื่องมือจริง) ============ -->
+<section class="screen has-subheader" id="screen-shop-email">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-canva"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Canva</p>
+      <h2>📨 เมลร้านส่วนตัว</h2>
+    </div>
+    <div class="add-icon-btn" id="addShopVariantBtn">➕</div>
+  </div>
+  <main>
+    <div id="shopVariantList"></div>
+  </main>
+</section>
+
+<!-- Add shop variant sheet -->
+<div class="sheet-overlay" id="shopAddOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มรายการใหม่</h3>
+    <div class="field">
+      <label>ชื่อรายการ</label>
+      <input id="newShopVariantName" type="text" placeholder="เช่น 15 วัน, 30 วัน">
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="shopCancelAddBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="shopConfirmAddBtn">✅ สร้างรายการ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Screen 4: แบบเมลลูกค้า (ระบบแพ็กเกจ) ============ -->
+<section class="screen has-subheader" id="screen-package-tool">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-canva"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Canva</p>
+      <h2>📦 แบบเมลลูกค้า</h2>
+    </div>
+    <div class="add-icon-btn" id="addPackageBtn">➕</div>
+  </div>
+  <main>
+    <div id="packageList"></div>
+  </main>
+</section>
+
+<!-- ============ Screen 5: หมวด Microsoft ============ -->
+<section class="screen has-subheader" id="screen-microsoft">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-home"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew</p>
+      <h2>🪟 Microsoft</h2>
+    </div>
+    <div class="settings-icon-btn-inline" id="msSettingsBtn" title="ตั้งค่าเมนู">⚙️</div>
+  </div>
+  <main>
+    <div class="section-label">ตัวเลือก Microsoft</div>
+    <div id="msMenuList"></div>
+  </main>
+</section>
+
+<!-- ============ Screen: หมวด เมลร้านแบบรวม ============ -->
+<section class="screen has-subheader" id="screen-combined">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-home"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew</p>
+      <h2>📮 เมลร้านแบบรวม</h2>
+    </div>
+  </div>
+  <main>
+    <div class="section-header-row">
+      <div class="section-label" style="margin:0;">📦 แบบเมลลูกค้า</div>
+      <div class="add-icon-btn" id="addCbPackageBtn">➕</div>
+    </div>
+    <div id="cbPackageList"></div>
+  </main>
+</section>
+
+<!-- ============ Settings screens: rename / reorder menu items ============ -->
+<section class="screen has-subheader" id="screen-home-settings">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-home"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew</p>
+      <h2>⚙️ ตั้งค่าเมนูหลัก</h2>
+    </div>
+  </div>
+  <main>
+    <div class="settings-row" id="editBannerRow" style="cursor:pointer;">
+      <div class="icon">✏️</div>
+      <div class="settings-fields">
+        <div style="font-family:'Sarabun', sans-serif; font-weight:600; font-size:14px; color:var(--text);">แก้ไขแบนเนอร์หัวข้อ</div>
+        <div style="font-size:12px; color:var(--text-muted);">รูปภาพ / ชื่อ / คำอธิบายย่อยของหน้าแรก</div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="section-label">รายการเมนู</div>
+    <div id="homeSettingsList"></div>
+    <button class="add-btn" id="addHomeMenuItemBtn" style="margin-top:4px;">➕ เพิ่มรายการเมนูใหม่</button>
+  </main>
+</section>
+
+<!-- Shared add-menu-item sheet (reused for home, Canva, Microsoft) -->
+<div class="sheet-overlay" id="menuAddItemOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มรายการเมนูใหม่</h3>
+    <div class="field">
+      <label>ไอคอน (emoji)</label>
+      <input id="newMenuItemIcon" type="text" placeholder="🪟" maxlength="4">
+    </div>
+    <div class="field">
+      <label>ชื่อรายการ</label>
+      <input id="newMenuItemName" type="text" placeholder="เช่น Microsoft">
+    </div>
+    <div class="field">
+      <label>คำอธิบายด้านล่างชื่อ</label>
+      <input id="newMenuItemDesc" type="text" placeholder="เช่น จัดการและส่งข้อมูล Microsoft 365">
+    </div>
+    <div class="field">
+      <label>ลิงก์ไปหน้าไหนเมื่อกด</label>
+      <select id="newMenuItemNav"></select>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="menuAddItemCancelBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="menuAddItemConfirmBtn">✅ เพิ่มรายการ</button>
+    </div>
+  </div>
+</div>
+
+<section class="screen has-subheader" id="screen-canva-settings">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-canva"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Canva</p>
+      <h2>⚙️ ตั้งค่าเมนู Canva</h2>
+    </div>
+  </div>
+  <main>
+    <div id="canvaSettingsList"></div>
+    <button class="add-btn" id="addCanvaMenuItemBtn" style="margin-top:4px;">➕ เพิ่มรายการเมนูใหม่</button>
+  </main>
+</section>
+
+<section class="screen has-subheader" id="screen-ms-settings">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-microsoft"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Microsoft</p>
+      <h2>⚙️ ตั้งค่าเมนู Microsoft</h2>
+    </div>
+  </div>
+  <main>
+    <div id="msSettingsList"></div>
+    <button class="add-btn" id="addMsMenuItemBtn" style="margin-top:4px;">➕ เพิ่มรายการเมนูใหม่</button>
+  </main>
+</section>
+
+<!-- ============ Screen 6: Microsoft แบบส่วนตัว (เครื่องมือจริง) ============ -->
+<section class="screen has-subheader" id="screen-ms-personal">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-microsoft"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Microsoft</p>
+      <h2>📨 แบบส่วนตัว</h2>
+    </div>
+    <div class="add-icon-btn" id="addMsVariantBtn">➕</div>
+  </div>
+  <main>
+    <div id="msVariantList"></div>
+  </main>
+</section>
+
+<!-- Add Microsoft variant sheet -->
+<div class="sheet-overlay" id="msAddOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มรายการใหม่</h3>
+    <div class="field">
+      <label>ชื่อรายการ</label>
+      <input id="newMsVariantName" type="text" placeholder="เช่น 15 วัน, 30 วัน">
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="msCancelAddBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="msConfirmAddBtn">✅ สร้างรายการ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview sheet (Microsoft แบบส่วนตัว) -->
+<div class="sheet-overlay" id="msOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>👀 ตัวอย่างข้อความ</h3>
+    <pre id="msPreviewText"></pre>
+    <button class="btn btn-primary" id="msClosePreviewBtn">ปิด</button>
+  </div>
+</div>
+
+<!-- Preview sheet (เมลร้านส่วนตัว) -->
+<div class="sheet-overlay" id="overlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>👀 ตัวอย่างข้อความ</h3>
+    <pre id="previewText"></pre>
+    <button class="btn btn-primary" id="closePreviewBtn">ปิด</button>
+  </div>
+</div>
+
+<!-- Add package sheet -->
+<div class="sheet-overlay" id="pkgAddOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มแพ็กเกจใหม่</h3>
+    <div class="field">
+      <label>ชื่อแพ็กเกจ</label>
+      <input id="newPkgName" type="text" placeholder="เช่น Canva Pro 60 วัน">
+    </div>
+    <div class="field">
+      <label>จำนวนที่สามารถคัดลอกได้</label>
+      <input id="newPkgLimit" type="number" min="1" placeholder="เช่น 100">
+    </div>
+    <div class="field">
+      <label>สีการ์ด</label>
+      <div class="swatches" id="colorSwatches"></div>
+      <div class="color-input-row">
+        <input type="color" id="newPkgColorPicker" value="#FF8FB1">
+        <span>หรือเลือกสีอิสระเองที่นี่</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>สีตัวอักษรชื่อแพ็กเกจ</label>
+      <div class="color-input-row">
+        <input type="color" id="newPkgTextColorPicker" value="#4A3238">
+        <span>เลือกสีตัวหนังสือได้อิสระ</span>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="cancelAddBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="confirmAddBtn">✅ สร้างแพ็กเกจ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview sheet (แบบเมลลูกค้า) -->
+<div class="sheet-overlay" id="pkgPreviewOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>👀 ตัวอย่างข้อความ</h3>
+    <pre id="pkgPreviewText"></pre>
+    <button class="btn btn-primary btn-full-width" id="pkgClosePreviewBtn">ปิด</button>
+  </div>
+</div>
+
+<!-- ============ Screen 7: Microsoft แบบเมลลูกค้า (ระบบแพ็กเกจ) ============ -->
+<section class="screen has-subheader" id="screen-ms-package-tool">
+  <div class="sub-header">
+    <div class="back-btn" data-nav="screen-microsoft"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"></polyline></svg></div>
+    <div class="sub-header-titles">
+      <p class="crumb">mamoww crew › Microsoft</p>
+      <h2>📦 แบบเมลลูกค้า</h2>
+    </div>
+    <div class="add-icon-btn" id="addMsPackageBtn">➕</div>
+  </div>
+  <main>
+    <div id="msPackageList"></div>
+  </main>
+</section>
+
+<!-- Add MS package sheet -->
+<div class="sheet-overlay" id="msPkgAddOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มแพ็กเกจใหม่</h3>
+    <div class="field">
+      <label>ชื่อแพ็กเกจ</label>
+      <input id="newMsPkgName" type="text" placeholder="เช่น Microsoft 365 60 วัน">
+    </div>
+    <div class="field">
+      <label>จำนวนที่สามารถคัดลอกได้</label>
+      <input id="newMsPkgLimit" type="number" min="1" placeholder="เช่น 100">
+    </div>
+    <div class="field">
+      <label>สีการ์ด</label>
+      <div class="swatches" id="msColorSwatches"></div>
+      <div class="color-input-row">
+        <input type="color" id="newMsPkgColorPicker" value="#00A4EF">
+        <span>หรือเลือกสีอิสระเองที่นี่</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>สีตัวอักษรชื่อแพ็กเกจ</label>
+      <div class="color-input-row">
+        <input type="color" id="newMsPkgTextColorPicker" value="#4A3238">
+        <span>เลือกสีตัวหนังสือได้อิสระ</span>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="msPkgCancelAddBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="msPkgConfirmAddBtn">✅ สร้างแพ็กเกจ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview sheet (Microsoft แบบเมลลูกค้า) -->
+<div class="sheet-overlay" id="msPkgPreviewOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>👀 ตัวอย่างข้อความ</h3>
+    <pre id="msPkgPreviewText"></pre>
+    <button class="btn btn-primary btn-full-width" id="msPkgClosePreviewBtn">ปิด</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Add เมลร้านแบบรวม package sheet -->
+<div class="sheet-overlay" id="cbPkgAddOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>➕ เพิ่มแพ็กเกจใหม่</h3>
+    <div class="field">
+      <label>ชื่อแพ็กเกจ</label>
+      <input id="newCbPkgName" type="text" placeholder="เช่น แพ็กเกจ 60 วัน">
+    </div>
+    <div class="field">
+      <label>จำนวนที่สามารถคัดลอกได้</label>
+      <input id="newCbPkgLimit" type="number" min="1" placeholder="เช่น 100">
+    </div>
+    <div class="field">
+      <label>สีการ์ด</label>
+      <div class="swatches" id="cbColorSwatches"></div>
+      <div class="color-input-row">
+        <input type="color" id="newCbPkgColorPicker" value="#2EC4B6">
+        <span>หรือเลือกสีอิสระเองที่นี่</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>สีตัวอักษรชื่อแพ็กเกจ</label>
+      <div class="color-input-row">
+        <input type="color" id="newCbPkgTextColorPicker" value="#4A3238">
+        <span>เลือกสีตัวหนังสือได้อิสระ</span>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-muted" id="cbPkgCancelAddBtn">ยกเลิก</button>
+      <button class="btn btn-primary" id="cbPkgConfirmAddBtn">✅ สร้างแพ็กเกจ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview sheet (เมลร้านแบบรวม แบบเมลลูกค้า) -->
+<div class="sheet-overlay" id="cbPkgPreviewOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>👀 ตัวอย่างข้อความ</h3>
+    <pre id="cbPkgPreviewText"></pre>
+    <button class="btn btn-primary btn-full-width" id="cbPkgClosePreviewBtn">ปิด</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---------- Navigation ----------
+  const screens = document.querySelectorAll('.screen');
+  function goTo(id){
+    screens.forEach(s => s.classList.toggle('active', s.id === id));
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', () => goTo(el.dataset.nav));
+  });
+
+  // ---------- Shared helpers ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+  }
+
+  async function copyText(text){
+    try{
+      await navigator.clipboard.writeText(text);
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try{ document.execCommand('copy'); }catch(e2){}
+      document.body.removeChild(ta);
+    }
+  }
+
+  function esc(s){
+    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ---------- Editable / reorderable menu system (home, Canva, Microsoft, เมลร้านแบบรวม) ----------
+  function defaultHomeMenu(){
+    return [
+      { id:'canva', icon:'🎨', name:'Canva', desc:'จัดการและส่งข้อมูล Canva Pro', nav:'screen-canva' },
+      { id:'microsoft', icon:'🪟', name:'Microsoft', desc:'จัดการและส่งข้อมูล Microsoft 365', nav:'screen-microsoft' },
+      { id:'combined', icon:'📮', name:'เมลร้านแบบรวม', desc:'ชุดข้อมูลรวมแยกต่างหาก', nav:'screen-combined' }
+    ];
+  }
+  function defaultCanvaMenu(){
+    return [
+      { id:'package-tool', icon:'📦', name:'แบบเมลลูกค้า', desc:'แพ็กเกจ 3/7/10/15/30 วัน + จำนวนผู้ใช้งาน', nav:'screen-package-tool' }
+    ];
+  }
+  function defaultMsMenu(){
+    return [
+      { id:'ms-package-tool', icon:'📦', name:'แบบเมลลูกค้า', desc:'แพ็กเกจ 3/7/10/15/30 วัน + จำนวนผู้ใช้งาน', nav:'screen-ms-package-tool' }
+    ];
+  }
+
+  const MENUS = {
+    home: { key:'home-menu-v1', defaults: defaultHomeMenu, items: [], listEl: null, settingsEl: null },
+    canva: { key:'canva-menu-v1', defaults: defaultCanvaMenu, items: [], listEl: null, settingsEl: null },
+    ms: { key:'ms-menu-v1', defaults: defaultMsMenu, items: [], listEl: null, settingsEl: null }
+  };
+
+  async function loadMenu(menuKey){
+    const m = MENUS[menuKey];
+    try{
+      const res = await window.storage.get(m.key, false);
+      m.items = (res && res.value) ? JSON.parse(res.value) : m.defaults();
+      if(!res || !res.value) await saveMenu(menuKey);
+    }catch(e){
+      m.items = m.defaults();
+      await saveMenu(menuKey);
+    }
+    renderMenuList(menuKey);
+  }
+
+  async function saveMenu(menuKey){
+    const m = MENUS[menuKey];
+    try{
+      await window.storage.set(m.key, JSON.stringify(m.items), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function renderMenuList(menuKey){
+    const m = MENUS[menuKey];
+    if(!m.listEl) return;
+    m.listEl.innerHTML = '';
+    m.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'menu-row';
+      row.innerHTML = `
+        <div class="icon">${item.icon}</div>
+        <div class="label">
+          <div class="name">${esc(item.name)}</div>
+          <div class="desc">${esc(item.desc)}</div>
+        </div>
+        <div class="chevron">›</div>
+      `;
+      row.addEventListener('click', () => goTo(item.nav));
+      m.listEl.appendChild(row);
+    });
+  }
+
+  function renderMenuSettings(menuKey){
+    const m = MENUS[menuKey];
+    if(!m.settingsEl) return;
+    m.settingsEl.innerHTML = '';
+    m.items.forEach((item, idx) => {
+      const row = document.createElement('div');
+      row.className = 'settings-row';
+      row.innerHTML = `
+        <div class="icon">${item.icon}</div>
+        <div class="settings-fields">
+          <input class="settings-name-input" type="text" value="${esc(item.name)}" placeholder="ชื่อรายการ">
+          <input class="settings-desc-input" type="text" value="${esc(item.desc)}" placeholder="คำอธิบายด้านล่างชื่อ">
+        </div>
+        <div class="reorder-btns">
+          <button class="reorder-up" ${idx === 0 ? 'disabled' : ''}>▲</button>
+          <button class="reorder-down" ${idx === m.items.length - 1 ? 'disabled' : ''}>▼</button>
+        </div>
+        <button class="settings-delete-btn" ${m.items.length <= 1 ? 'disabled' : ''} title="ลบรายการนี้">✕</button>
+      `;
+      const nameInput = row.querySelector('.settings-name-input');
+      const descInput = row.querySelector('.settings-desc-input');
+      nameInput.addEventListener('change', async () => {
+        item.name = nameInput.value.trim() || item.name;
+        await saveMenu(menuKey);
+        renderMenuList(menuKey);
+        showToast('💾 บันทึกชื่อแล้ว');
+      });
+      descInput.addEventListener('change', async () => {
+        item.desc = descInput.value.trim();
+        await saveMenu(menuKey);
+        renderMenuList(menuKey);
+        showToast('💾 บันทึกคำอธิบายแล้ว');
+      });
+      row.querySelector('.reorder-up').addEventListener('click', async () => {
+        if(idx === 0) return;
+        [m.items[idx - 1], m.items[idx]] = [m.items[idx], m.items[idx - 1]];
+        await saveMenu(menuKey);
+        renderMenuList(menuKey);
+        renderMenuSettings(menuKey);
+      });
+      row.querySelector('.reorder-down').addEventListener('click', async () => {
+        if(idx === m.items.length - 1) return;
+        [m.items[idx + 1], m.items[idx]] = [m.items[idx], m.items[idx + 1]];
+        await saveMenu(menuKey);
+        renderMenuList(menuKey);
+        renderMenuSettings(menuKey);
+      });
+      row.querySelector('.settings-delete-btn').addEventListener('click', async () => {
+        if(m.items.length <= 1) return;
+        if(!confirm('ลบรายการ "' + item.name + '" ใช่หรือไม่?')) return;
+        m.items = m.items.filter(x => x.id !== item.id);
+        await saveMenu(menuKey);
+        renderMenuList(menuKey);
+        renderMenuSettings(menuKey);
+      });
+      m.settingsEl.appendChild(row);
+    });
+  }
+
+  MENUS.home.listEl = document.getElementById('homeMenuList');
+  MENUS.canva.listEl = document.getElementById('canvaMenuList');
+  MENUS.ms.listEl = document.getElementById('msMenuList');
+  MENUS.home.settingsEl = document.getElementById('homeSettingsList');
+  MENUS.canva.settingsEl = document.getElementById('canvaSettingsList');
+  MENUS.ms.settingsEl = document.getElementById('msSettingsList');
+
+  document.getElementById('homeSettingsBtn').addEventListener('click', () => {
+    renderMenuSettings('home');
+    goTo('screen-home-settings');
+  });
+  document.getElementById('canvaSettingsBtn').addEventListener('click', () => {
+    renderMenuSettings('canva');
+    goTo('screen-canva-settings');
+  });
+  document.getElementById('msSettingsBtn').addEventListener('click', () => {
+    renderMenuSettings('ms');
+    goTo('screen-ms-settings');
+  });
+
+  loadMenu('home');
+  loadMenu('canva');
+  loadMenu('ms');
+
+  // ---------- Add new menu item (shared across home / Canva / Microsoft) ----------
+  const MENU_NAV_OPTIONS = {
+    home: [
+      { value:'screen-canva', label:'🎨 Canva' },
+      { value:'screen-microsoft', label:'🪟 Microsoft' },
+      { value:'screen-combined', label:'📮 เมลร้านแบบรวม' }
+    ],
+    canva: [
+      { value:'screen-shop-email', label:'📨 เมลร้านส่วนตัว' },
+      { value:'screen-package-tool', label:'📦 แบบเมลลูกค้า' }
+    ],
+    ms: [
+      { value:'screen-ms-personal', label:'📨 แบบส่วนตัว' },
+      { value:'screen-ms-package-tool', label:'📦 แบบเมลลูกค้า' }
+    ]
+  };
+
+  const menuAddItemOverlay = document.getElementById('menuAddItemOverlay');
+  const newMenuItemIcon = document.getElementById('newMenuItemIcon');
+  const newMenuItemName = document.getElementById('newMenuItemName');
+  const newMenuItemDesc = document.getElementById('newMenuItemDesc');
+  const newMenuItemNav = document.getElementById('newMenuItemNav');
+  let currentAddMenuKey = 'home';
+
+  function openMenuAddItem(menuKey){
+    currentAddMenuKey = menuKey;
+    newMenuItemIcon.value = '';
+    newMenuItemName.value = '';
+    newMenuItemDesc.value = '';
+    newMenuItemNav.innerHTML = MENU_NAV_OPTIONS[menuKey]
+      .map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+    menuAddItemOverlay.classList.add('show');
+  }
+
+  document.getElementById('addHomeMenuItemBtn').addEventListener('click', () => openMenuAddItem('home'));
+  document.getElementById('addCanvaMenuItemBtn').addEventListener('click', () => openMenuAddItem('canva'));
+  document.getElementById('addMsMenuItemBtn').addEventListener('click', () => openMenuAddItem('ms'));
+
+  document.getElementById('menuAddItemCancelBtn').addEventListener('click', () => {
+    menuAddItemOverlay.classList.remove('show');
+  });
+  menuAddItemOverlay.addEventListener('click', e => { if(e.target === menuAddItemOverlay) menuAddItemOverlay.classList.remove('show'); });
+
+  document.getElementById('menuAddItemConfirmBtn').addEventListener('click', async () => {
+    const name = newMenuItemName.value.trim();
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อรายการ');
+      return;
+    }
+    const icon = newMenuItemIcon.value.trim() || '📌';
+    const desc = newMenuItemDesc.value.trim();
+    const nav = newMenuItemNav.value;
+    MENUS[currentAddMenuKey].items.push({ id: 'item_' + Date.now(), icon, name, desc, nav });
+    await saveMenu(currentAddMenuKey);
+    renderMenuList(currentAddMenuKey);
+    renderMenuSettings(currentAddMenuKey);
+    menuAddItemOverlay.classList.remove('show');
+    showToast('✅ เพิ่มรายการแล้ว');
+  });
+
+  // ---------- Home banner (image + title + subtitle, editable) ----------
+  const BANNER_KEY = 'home-banner-v1';
+  const bannerImageEl = document.getElementById('bannerImage');
+  const bannerImagePlaceholder = document.getElementById('bannerImagePlaceholder');
+  const bannerTitleEl = document.getElementById('bannerTitle');
+  const bannerSubtitleEl = document.getElementById('bannerSubtitle');
+  const bannerEditOverlay = document.getElementById('bannerEditOverlay');
+  const bannerImageInput = document.getElementById('bannerImageInput');
+  const bannerTitleInput = document.getElementById('bannerTitleInput');
+  const bannerSubtitleInput = document.getElementById('bannerSubtitleInput');
+  const bannerColorStartInput = document.getElementById('bannerColorStartInput');
+  const bannerColorEndInput = document.getElementById('bannerColorEndInput');
+  const bannerTitleColorInput = document.getElementById('bannerTitleColorInput');
+  const bannerBgImageInput = document.getElementById('bannerBgImageInput');
+  const bannerEl = document.getElementById('storeBanner');
+
+  const BANNER_DEFAULT_COLORS = { start:'#A7B8FF', end:'#BFE9FF', title:'#4A5FD9' };
+  let bannerData = { title: 'mamoww crew', subtitle: 'เลือกบริการที่ต้องการ', image: '', bgImage: '', colors: Object.assign({}, BANNER_DEFAULT_COLORS) };
+  let pendingBannerImage = null;
+  let pendingBannerBgImage = undefined; // undefined = no change, null = clear, string = new image
+
+  function renderBanner(){
+    bannerTitleEl.textContent = bannerData.title || 'mamoww crew';
+    bannerSubtitleEl.textContent = bannerData.subtitle || '';
+    if(bannerData.image){
+      bannerImageEl.src = bannerData.image;
+      bannerImageEl.style.display = 'block';
+      bannerImagePlaceholder.style.display = 'none';
+    }else{
+      bannerImageEl.style.display = 'none';
+      bannerImagePlaceholder.style.display = 'flex';
+    }
+    const c = Object.assign({}, BANNER_DEFAULT_COLORS, bannerData.colors || {});
+    if(bannerData.bgImage){
+      bannerEl.style.background = `url(${bannerData.bgImage}) center/cover no-repeat`;
+    }else{
+      bannerEl.style.background = `linear-gradient(120deg, ${c.start} 0%, ${c.end} 100%)`;
+    }
+    bannerTitleEl.style.color = c.title;
+  }
+
+  async function loadBanner(){
+    try{
+      const res = await window.storage.get(BANNER_KEY, false);
+      if(res && res.value) bannerData = JSON.parse(res.value);
+    }catch(e){ /* keep defaults */ }
+    renderBanner();
+  }
+
+  async function saveBanner(){
+    try{
+      await window.storage.set(BANNER_KEY, JSON.stringify(bannerData), false);
+      showToast('💾 บันทึกแบนเนอร์แล้ว');
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+    renderBanner();
+  }
+
+  // Resize any uploaded image client-side so it fits comfortably in storage
+  function resizeImageFile(file, maxSize){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if(w > maxSize || h > maxSize){
+            if(w > h){ h = Math.round(h * maxSize / w); w = maxSize; }
+            else{ w = Math.round(w * maxSize / h); h = maxSize; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.onerror = reject;
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('editBannerRow').addEventListener('click', () => {
+    bannerTitleInput.value = bannerData.title || '';
+    bannerSubtitleInput.value = bannerData.subtitle || '';
+    bannerImageInput.value = '';
+    bannerBgImageInput.value = '';
+    const c = Object.assign({}, BANNER_DEFAULT_COLORS, bannerData.colors || {});
+    bannerColorStartInput.value = c.start;
+    bannerColorEndInput.value = c.end;
+    bannerTitleColorInput.value = c.title;
+    pendingBannerImage = null;
+    pendingBannerBgImage = undefined;
+    bannerEditOverlay.classList.add('show');
+  });
+  document.getElementById('bannerCancelBtn').addEventListener('click', () => {
+    bannerEditOverlay.classList.remove('show');
+  });
+  bannerEditOverlay.addEventListener('click', e => { if(e.target === bannerEditOverlay) bannerEditOverlay.classList.remove('show'); });
+
+  bannerImageInput.addEventListener('change', async () => {
+    const file = bannerImageInput.files && bannerImageInput.files[0];
+    if(!file) return;
+    try{
+      pendingBannerImage = await resizeImageFile(file, 500);
+      showToast('🖼️ เลือกรูปแล้ว กด "บันทึก" เพื่อยืนยัน');
+    }catch(e){
+      showToast('⚠️ อ่านรูปไม่สำเร็จ ลองรูปอื่น');
+    }
+  });
+
+  bannerBgImageInput.addEventListener('change', async () => {
+    const file = bannerBgImageInput.files && bannerBgImageInput.files[0];
+    if(!file) return;
+    try{
+      pendingBannerBgImage = await resizeImageFile(file, 1024);
+      showToast('🖼️ เลือกรูปพื้นหลังแล้ว กด "บันทึก" เพื่อยืนยัน');
+    }catch(e){
+      showToast('⚠️ อ่านรูปไม่สำเร็จ ลองรูปอื่น');
+    }
+  });
+
+  document.getElementById('bannerBgClearBtn').addEventListener('click', () => {
+    pendingBannerBgImage = null;
+    bannerBgImageInput.value = '';
+    showToast('🗑️ จะล้างรูปพื้นหลังเมื่อกด "บันทึก"');
+  });
+
+  document.getElementById('bannerSaveBtn').addEventListener('click', async () => {
+    bannerData.title = bannerTitleInput.value.trim() || 'mamoww crew';
+    bannerData.subtitle = bannerSubtitleInput.value.trim();
+    bannerData.colors = {
+      start: bannerColorStartInput.value,
+      end: bannerColorEndInput.value,
+      title: bannerTitleColorInput.value
+    };
+    if(pendingBannerImage) bannerData.image = pendingBannerImage;
+    if(pendingBannerBgImage === null) bannerData.bgImage = '';
+    else if(pendingBannerBgImage) bannerData.bgImage = pendingBannerBgImage;
+    await saveBanner();
+    bannerEditOverlay.classList.remove('show');
+  });
+
+  loadBanner();
+
+  // ---------- Home dashboard: which packages are ready to send ----------
+  const dashboardListEl = document.getElementById('dashboardList');
+  const dashboardToggle = document.getElementById('dashboardToggle');
+  const dashFilterTabsEl = document.getElementById('dashFilterTabs');
+  let dashboardHidden = false;
+
+  function dashColorHex(source, color){
+    if(color && color.charAt(0) === '#') return color;
+    if(source === 'Canva') return colorHex(color);
+    if(source === 'Microsoft') return msPkgColorHex(color);
+    return cbPkgColorHex(color);
+  }
+
+  const DASH_CATEGORIES = [
+    { key: 'Canva', icon: '🎨' },
+    { key: 'Microsoft', icon: '🪟' },
+    { key: 'เมลร้านแบบรวม', icon: '📮' }
+  ];
+  let dashboardFilter = 'all';
+
+  function renderDashFilterTabs(){
+    if(!dashFilterTabsEl) return;
+    const tabs = [{ key: 'all', icon: '📋', label: 'ทั้งหมด' }, ...DASH_CATEGORIES.map(c => ({ key: c.key, icon: c.icon, label: c.key }))];
+    dashFilterTabsEl.innerHTML = tabs.map(t => `
+      <button class="dash-tab ${dashboardFilter === t.key ? 'dash-tab-active' : ''}" data-filter="${esc(t.key)}">${t.icon} ${esc(t.label)}</button>
+    `).join('');
+    dashFilterTabsEl.querySelectorAll('.dash-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        dashboardFilter = btn.dataset.filter;
+        renderDashboard();
+      });
+    });
+  }
+
+  function renderDashboard(){
+    if(!dashboardListEl) return;
+    if(dashboardHidden){
+      dashboardListEl.innerHTML = '';
+      if(dashFilterTabsEl) dashFilterTabsEl.innerHTML = '';
+      return;
+    }
+    renderDashFilterTabs();
+
+    const all = [
+      ...packages.map(p => ({ p, source: 'Canva', nav: 'screen-package-tool' })),
+      ...msPackages.map(p => ({ p, source: 'Microsoft', nav: 'screen-ms-package-tool' })),
+      ...cbPackages.map(p => ({ p, source: 'เมลร้านแบบรวม', nav: 'screen-combined' }))
+    ].filter(item => dashboardFilter === 'all' || item.source === dashboardFilter);
+
+    if(all.length === 0){
+      dashboardListEl.innerHTML = '<div class="dash-empty">ยังไม่มีแพ็กเกจให้แสดงผล</div>';
+      return;
+    }
+
+    dashboardListEl.innerHTML = '';
+    const groups = dashboardFilter === 'all' ? DASH_CATEGORIES.map(c => c.key) : [dashboardFilter];
+
+    groups.forEach(source => {
+      const items = all.filter(item => item.source === source);
+      if(items.length === 0) return;
+
+      // ready-to-send (not full) first, then full ones
+      items.sort((a, b) => {
+        const aFull = a.p.count >= a.p.limit ? 1 : 0;
+        const bFull = b.p.count >= b.p.limit ? 1 : 0;
+        return aFull - bFull;
+      });
+
+      if(dashboardFilter === 'all'){
+        const cat = DASH_CATEGORIES.find(c => c.key === source);
+        const header = document.createElement('div');
+        header.className = 'dash-group-label';
+        header.textContent = `${cat.icon} ${source} (${items.length})`;
+        dashboardListEl.appendChild(header);
+      }
+
+      items.forEach(item => {
+        const pkg = item.p;
+        const full = pkg.count >= pkg.limit;
+        const row = document.createElement('div');
+        row.className = 'dash-row';
+        row.innerHTML = `
+          <span class="dash-dot" style="background:${dashColorHex(item.source, pkg.color)}"></span>
+          <span class="dash-name">${esc(pkg.name)}</span>
+          <span class="dash-count">${pkg.count}/${pkg.limit}</span>
+          <span class="dash-status ${full ? 'dash-status-full' : 'dash-status-ok'}">${full ? '🔴 เต็ม' : '🟢 พร้อมส่ง'}</span>
+        `;
+        row.addEventListener('click', () => goTo(item.nav));
+        dashboardListEl.appendChild(row);
+      });
+    });
+  }
+
+  dashboardToggle.addEventListener('click', () => {
+    dashboardHidden = !dashboardHidden;
+    dashboardToggle.textContent = dashboardHidden ? 'แสดง' : 'ซ่อน';
+    renderDashboard();
+  });
+
+
+  // ---------- Canva shop-email tool logic (multi-variant) ----------
+  const SHOP_VARIANTS_KEY = 'shop-variants-v1';
+
+  const SHOP_DEFAULT_TEMPLATE =
+`₊⁺🦴🐈‍⬛˚ Canva Pro (เมลร้าน) 1 เดือน ✨⸝⸝
+
+𓍼 team ─ 🎂 JScanva9290
+👀ꕀ exp. ─ 09 𓈒 08 𓈒 69
+
+꒰ ⚠️ ꒱ สำคัญมาก อ่านก่อนน้า กฎการใช้งาน / ขั้นตอนต่างๆ ( อ่านก่อนสอบถาม )
+🥣 : https://dif.link/cvp.02
+
+mail :	{{email}}
+pass :	hopebi#bts7
+
+🐝 นำเมลลงชื่อเข้าใช้ได้เลย
+• login > ดำเนินการต่อด้วยอีเมล
+• ห้ามเข้าด้วย google 
+
+🔗 ลิงก์ทีม
+{{link}}
+
+"🍡เข้าได้แล้วรบกวนแคปภาพติดเมลมาให้แอดมินเช็คด้วยน้า
+ꔛ ไม่แคปภาพ / งดเคลมทุกกรณี"`;
+
+  const SV_DEFAULT_COLORS = {
+    accent: '#E85D8A',
+    copyLink: '#FF9FBB',
+    copyMsg: '#8E7CD9',
+    edit: '#FFE7CB',
+    preview: '#FFD9E8',
+    clear: '#DCE7FB'
+  };
+
+  function svColors(v){
+    return Object.assign({}, SV_DEFAULT_COLORS, v.colors || {});
+  }
+
+  function defaultShopVariants(){
+    return [
+      { id: 'sv_' + Date.now() + '_1', name: '15 วัน', link: '', template: SHOP_DEFAULT_TEMPLATE, colors: Object.assign({}, SV_DEFAULT_COLORS), editing: false },
+      { id: 'sv_' + Date.now() + '_2', name: '30 วัน', link: '', template: SHOP_DEFAULT_TEMPLATE, colors: Object.assign({}, SV_DEFAULT_COLORS), editing: false }
+    ];
+  }
+
+  let shopVariants = [];
+  const shopVariantListEl = document.getElementById('shopVariantList');
+  const overlay = document.getElementById('overlay');
+  const previewText = document.getElementById('previewText');
+  const shopAddOverlay = document.getElementById('shopAddOverlay');
+
+  async function loadShopVariants(){
+    try{
+      const res = await window.storage.get(SHOP_VARIANTS_KEY, false);
+      if(res && res.value){
+        shopVariants = JSON.parse(res.value);
+      }else{
+        shopVariants = defaultShopVariants();
+        await saveShopVariants();
+      }
+    }catch(e){
+      shopVariants = defaultShopVariants();
+      await saveShopVariants();
+    }
+    renderShopVariants();
+  }
+
+  async function saveShopVariants(){
+    try{
+      await window.storage.set(SHOP_VARIANTS_KEY, JSON.stringify(shopVariants), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function buildShopMessage(v, email){
+    return (v.template || SHOP_DEFAULT_TEMPLATE)
+      .replace(/\{\{email\}\}/g, email || '-')
+      .replace(/\{\{link\}\}/g, v.link || '-');
+  }
+
+  function toggleShopEdit(v){
+    v.editing = !v.editing;
+    renderShopVariants();
+  }
+
+  async function saveShopVariant(v){
+    const g = id => document.getElementById(id + '_' + v.id);
+    v.name = g('svName').value.trim() || v.name;
+    v.link = g('svLink').value.trim();
+    v.template = g('svTemplate').value;
+    v.colors = {
+      accent: g('svColorAccent').value,
+      copyLink: g('svColorCopyLink').value,
+      copyMsg: g('svColorCopyMsg').value,
+      edit: g('svColorEdit').value,
+      preview: g('svColorPreview').value,
+      clear: g('svColorClear').value
+    };
+    v.editing = false;
+    await saveShopVariants();
+    showToast('💾 บันทึกแล้ว');
+    renderShopVariants();
+  }
+
+  async function deleteShopVariant(v){
+    if(!confirm('ลบรายการ "' + v.name + '" ใช่หรือไม่?')) return;
+    shopVariants = shopVariants.filter(x => x.id !== v.id);
+    await saveShopVariants();
+    renderShopVariants();
+  }
+
+  function findMatchingPackage(v){
+    const m = v.name.match(/(15|30)\s*วัน/);
+    if(!m) return null;
+    const dayLabel = m[1] + ' วัน';
+    return packages.find(p => p.name.includes(dayLabel)) || null;
+  }
+
+  async function bumpMatchingPackageCount(v){
+    const pkg = findMatchingPackage(v);
+    if(!pkg) return;
+    if(pkg.count < pkg.limit || pkg.allowOverLimit){
+      pkg.count += 1;
+      await savePackages();
+      renderPackages();
+    }
+  }
+
+  async function copyShopLink(v){
+    if(!v.link){
+      showToast('⚠️ ยังไม่ได้ใส่ลิงก์');
+      return;
+    }
+    await copyText(v.link);
+    showToast('✅ คัดลอกลิงก์เรียบร้อย');
+    await bumpMatchingPackageCount(v);
+    renderShopVariants();
+  }
+
+  async function copyShopMessage(v){
+    const emailInput = document.getElementById('svEmail_' + v.id);
+    const email = emailInput ? emailInput.value.trim() : '';
+    if(!email){
+      showToast('⚠️ กรุณาวางอีเมลลูกค้าก่อน');
+      if(emailInput) emailInput.focus();
+      return;
+    }
+    await copyText(buildShopMessage(v, email));
+    showToast('✅ คัดลอกข้อความเรียบร้อย');
+    if(emailInput) emailInput.value = '';
+    await bumpMatchingPackageCount(v);
+    renderShopVariants();
+  }
+
+  function openShopPreview(v){
+    const emailInput = document.getElementById('svEmail_' + v.id);
+    const email = emailInput ? emailInput.value.trim() : '';
+    previewText.textContent = buildShopMessage(v, email);
+    overlay.classList.add('show');
+  }
+
+  function svSharedCountBadge(v){
+    const pkg = findMatchingPackage(v);
+    if(!pkg) return '';
+    return `<div class="sv-shared-count">👤 ${pkg.count}/${pkg.limit} <span class="sv-shared-count-label">(นับรวมกับแบบเมลลูกค้า)</span></div>`;
+  }
+
+  function svViewTemplate(v){
+    const c = svColors(v);
+    return `
+      <div class="card-head"><div class="card-title">🔗 ${esc(v.name)}</div></div>
+      ${svSharedCountBadge(v)}
+      <div class="link-display ${v.link ? '' : 'empty'}">${v.link ? esc(v.link) : 'ยังไม่ได้ใส่ลิงก์'}</div>
+      <div class="btn-row">
+        <button class="btn btn-md sv-copylink-btn" style="background:${c.copyLink}; color:#fff; box-shadow:none;">📋 คัดลอกลิงก์</button>
+        <button class="btn sv-edit-btn" style="flex:0 0 auto; width:auto; padding:11px 18px; background:${c.edit}; color:var(--text);">✏️</button>
+      </div>
+      <div class="sv-divider">📧 วางอีเมลลูกค้า</div>
+      <div class="field">
+        <input id="svEmail_${v.id}" type="text" placeholder="customer@email.com" autocomplete="off" autocapitalize="off">
+      </div>
+      <button class="btn btn-md sv-copymsg-btn" style="background:${c.copyMsg}; color:#fff; box-shadow:none;">📋 คัดลอกข้อความทั้งหมด</button>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="btn btn-compact sv-preview-btn" style="background:${c.preview}; color:var(--text);">👀 ดูตัวอย่าง</button>
+        <button class="btn btn-compact sv-clear-btn" style="background:${c.clear}; color:var(--text);">🗑️ ล้างอีเมล</button>
+      </div>
+    `;
+  }
+
+  function svEditTemplate(v){
+    const c = svColors(v);
+    return `
+      <div class="card-head"><div class="card-title">✏️ แก้ไข ${esc(v.name)}</div></div>
+      <div class="field">
+        <label>📌 ชื่อรายการ</label>
+        <input id="svName_${v.id}" type="text" value="${esc(v.name)}">
+      </div>
+      <div class="field">
+        <label>📌 ลิงก์ทีม</label>
+        <input id="svLink_${v.id}" type="text" value="${esc(v.link)}">
+      </div>
+      <div class="field">
+        <label>📌 สีทุกส่วน (แก้ไขได้อิสระ)</label>
+        <div class="color-grid">
+          <div class="color-swatch-field">
+            <input type="color" id="svColorAccent_${v.id}" value="${c.accent}">
+            <span>กรอบการ์ด</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="svColorCopyLink_${v.id}" value="${c.copyLink}">
+            <span>คัดลอกลิงก์</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="svColorCopyMsg_${v.id}" value="${c.copyMsg}">
+            <span>คัดลอกข้อความ</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="svColorEdit_${v.id}" value="${c.edit}">
+            <span>ปุ่มแก้ไข</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="svColorPreview_${v.id}" value="${c.preview}">
+            <span>ปุ่มตัวอย่าง</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="svColorClear_${v.id}" value="${c.clear}">
+            <span>ปุ่มล้างอีเมล</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความฟอร์ม</label>
+        <textarea id="svTemplate_${v.id}" rows="14">${esc(v.template)}</textarea>
+        <div class="hint">ใช้ <b>{{email}}</b> แทนตำแหน่งอีเมลลูกค้า และ <b>{{link}}</b> แทนตำแหน่งลิงก์ทีม</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-muted btn-compact sv-cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact sv-save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-ghost sv-reset-btn" style="width:100%;">↩️ กลับไปใช้ข้อความเริ่มต้น</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact sv-delete-btn btn-full-width">🗑️ ลบรายการนี้</button>
+      </div>
+    `;
+  }
+
+  function renderShopVariants(){
+    if(shopVariants.length === 0){
+      shopVariantListEl.innerHTML = '<div class="empty-state">ยังไม่มีรายการ กด ➕ มุมขวาบนเพื่อเริ่มต้น</div>';
+      return;
+    }
+    shopVariantListEl.innerHTML = '';
+    shopVariants.forEach(v => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      card.style.setProperty('--accent', svColors(v).accent);
+      card.innerHTML = v.editing ? svEditTemplate(v) : svViewTemplate(v);
+      shopVariantListEl.appendChild(card);
+
+      if(v.editing){
+        card.querySelector('.sv-save-btn').addEventListener('click', () => saveShopVariant(v));
+        card.querySelector('.sv-cancel-btn').addEventListener('click', () => toggleShopEdit(v));
+        card.querySelector('.sv-reset-btn').addEventListener('click', () => {
+          document.getElementById('svTemplate_' + v.id).value = SHOP_DEFAULT_TEMPLATE;
+        });
+        card.querySelector('.sv-delete-btn').addEventListener('click', () => deleteShopVariant(v));
+      } else {
+        card.querySelector('.sv-edit-btn').addEventListener('click', () => toggleShopEdit(v));
+        card.querySelector('.sv-copylink-btn').addEventListener('click', () => copyShopLink(v));
+        card.querySelector('.sv-copymsg-btn').addEventListener('click', () => copyShopMessage(v));
+        card.querySelector('.sv-preview-btn').addEventListener('click', () => openShopPreview(v));
+        card.querySelector('.sv-clear-btn').addEventListener('click', () => {
+          const emailInput = document.getElementById('svEmail_' + v.id);
+          if(emailInput){ emailInput.value = ''; emailInput.focus(); }
+        });
+      }
+    });
+  }
+
+  document.getElementById('addShopVariantBtn').addEventListener('click', () => {
+    document.getElementById('newShopVariantName').value = '';
+    shopAddOverlay.classList.add('show');
+  });
+  document.getElementById('shopCancelAddBtn').addEventListener('click', () => shopAddOverlay.classList.remove('show'));
+  shopAddOverlay.addEventListener('click', e => { if(e.target === shopAddOverlay) shopAddOverlay.classList.remove('show'); });
+
+  document.getElementById('shopConfirmAddBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newShopVariantName').value.trim();
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อรายการ');
+      return;
+    }
+    const v = { id: 'sv_' + Date.now(), name, link: '', template: SHOP_DEFAULT_TEMPLATE, colors: Object.assign({}, SV_DEFAULT_COLORS), editing: true };
+    shopVariants.push(v);
+    await saveShopVariants();
+    shopAddOverlay.classList.remove('show');
+    renderShopVariants();
+    showToast('✅ สร้างรายการแล้ว กรอกรายละเอียดแล้วกดบันทึก');
+  });
+
+  document.getElementById('closePreviewBtn').addEventListener('click', ()=>{
+    overlay.classList.remove('show');
+  });
+  overlay.addEventListener('click', (e)=>{
+    if(e.target === overlay) overlay.classList.remove('show');
+  });
+
+  loadShopVariants();
+
+  // ---------- แบบเมลลูกค้า: package tool logic ----------
+  const PKG_STORAGE_KEY = 'canva-packages-v2';
+  const PKG_COLORS = [
+    {key:'pink',   hex:'#FF8FB1', emoji:'🩷'},
+    {key:'purple', hex:'#B79CED', emoji:'💜'},
+    {key:'blue',   hex:'#7EC8E3', emoji:'💙'},
+    {key:'green',  hex:'#7ED9A8', emoji:'💚'},
+    {key:'yellow', hex:'#F0C550', emoji:'💛'},
+  ];
+
+  const PKG_DEFAULT_TEMPLATE =
+`🐈 {{package_name}} (เมลร้าน) ✨
+
+👥 team - {{team}}
+
+👀 exp. - {{exp}}
+
+⚠️ 3 สิ่งสำคัญมาก อ่านก่อนใช้งาน / ขั้นตอนต่าง ๆ
+{{guide}}
+
+📧 mail :
+{{email}}
+
+🔑 pass :
+{{password}}
+
+🐝 นำเมลลงชื่อเข้าใช้ได้เลย
+
+• login > ดำเนินการต่อด้วยอีเมล
+• ห้ามเข้าด้วย Google
+
+🔗 ลิงก์ทีม
+{{link}}
+
+🌷 เข้าได้แล้วรบกวนแคปภาพติดเมลมาให้แอดมินตรวจสอบ`;
+
+  function pkgDefaultPackages(){
+    const defs = [
+      {name:'Canva Pro 3 วัน',  color:'pink',   team:'JScanva9292', exp:'16 / 07 / 69', limit:100},
+      {name:'Canva Pro 7 วัน',  color:'purple', team:'',            exp:'',             limit:60},
+      {name:'Canva Pro 10 วัน', color:'blue',   team:'',            exp:'',             limit:80},
+      {name:'Canva Pro 15 วัน', color:'green',  team:'',            exp:'',             limit:40},
+      {name:'Canva Pro 30 วัน', color:'yellow', team:'',            exp:'',             limit:20},
+    ];
+    return defs.map((d, i) => ({
+      id: 'pkg_' + Date.now() + '_' + i,
+      name: d.name,
+      color: d.color,
+      team: d.team,
+      exp: d.exp,
+      link: '',
+      password: 'hopebi#bts7',
+      guide: 'https://dif.link/cvp.02',
+      template: PKG_DEFAULT_TEMPLATE,
+      limit: d.limit,
+      count: 0,
+      allowOverLimit: false,
+      editing: false
+    }));
+  }
+
+  let packages = [];
+  let addColorSelected = 'pink';
+
+  const listEl = document.getElementById('packageList');
+  const pkgAddOverlay = document.getElementById('pkgAddOverlay');
+  const pkgPreviewOverlay = document.getElementById('pkgPreviewOverlay');
+  const pkgPreviewText = document.getElementById('pkgPreviewText');
+
+  function colorHex(color){
+    if(color && color.charAt(0) === '#') return color;
+    const c = PKG_COLORS.find(c => c.key === color);
+    return c ? c.hex : PKG_COLORS[0].hex;
+  }
+  function colorDot(color){
+    return `<span class="pkg-color-dot" style="background:${colorHex(color)}"></span>`;
+  }
+  function lighten(hex, percent){
+    let h = hex.replace('#','');
+    if(h.length === 3) h = h.split('').map(c => c + c).join('');
+    const num = parseInt(h, 16);
+    let r = (num >> 16) & 255, g = (num >> 8) & 255, b = num & 255;
+    r = Math.round(r + (255 - r) * percent / 100);
+    g = Math.round(g + (255 - g) * percent / 100);
+    b = Math.round(b + (255 - b) * percent / 100);
+    return '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
+  }
+
+  async function loadPackages(){
+    try{
+      const res = await window.storage.get(PKG_STORAGE_KEY, false);
+      if(res && res.value){
+        packages = JSON.parse(res.value);
+      }else{
+        packages = pkgDefaultPackages();
+        await savePackages();
+      }
+    }catch(e){
+      packages = pkgDefaultPackages();
+      await savePackages();
+    }
+    renderPackages();
+    if(typeof renderShopVariants === 'function' && shopVariants.length) renderShopVariants();
+  }
+
+  async function savePackages(){
+    try{
+      await window.storage.set(PKG_STORAGE_KEY, JSON.stringify(packages), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function buildPkgMessage(pkg){
+    const vars = {
+      package_name: pkg.name || '-',
+      team: pkg.team || '-',
+      exp: pkg.exp || '-',
+      link: pkg.link || '-',
+      password: pkg.password || '-',
+      guide: pkg.guide || '-',
+      email: ''
+    };
+    return (pkg.template || PKG_DEFAULT_TEMPLATE).replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
+  }
+
+  async function copyForPackage(pkg){
+    if(pkg.count >= pkg.limit && !pkg.allowOverLimit){
+      showToast('🔴 แพ็กเกจนี้เต็มแล้ว');
+      return;
+    }
+    await copyText(buildPkgMessage(pkg));
+    pkg.count += 1;
+    await savePackages();
+    showToast('✅ คัดลอกข้อความเรียบร้อย');
+    renderPackages();
+  }
+
+  function togglePkgEdit(pkg){
+    pkg.editing = !pkg.editing;
+    renderPackages();
+  }
+
+  async function savePkgEdit(pkg){
+    const g = id => document.getElementById(id + '_' + pkg.id);
+    pkg.name = g('f_name').value.trim() || pkg.name;
+    pkg.color = g('f_color').value;
+    pkg.textColor = g('f_textColor').value;
+    pkg.template = g('f_template').value;
+    pkg.note = g('f_note').value;
+    pkg.showNote = g('f_showNote').checked;
+    const countVal = parseInt(g('f_count').value, 10);
+    const limitVal = parseInt(g('f_limit').value, 10);
+    const previewLinesVal = parseInt(g('f_previewLines').value, 10);
+    pkg.count = isNaN(countVal) || countVal < 0 ? pkg.count : countVal;
+    pkg.limit = isNaN(limitVal) || limitVal < 1 ? pkg.limit : limitVal;
+    pkg.previewLines = isNaN(previewLinesVal) || previewLinesVal < 1 ? 4 : previewLinesVal;
+    pkg.editing = false;
+    await savePackages();
+    showToast('💾 บันทึกแพ็กเกจแล้ว');
+    renderPackages();
+  }
+
+  async function resetPkgCount(pkg){
+    pkg.count = 0;
+    await savePackages();
+    showToast('🔄 รีเซ็ตจำนวนแล้ว');
+    renderPackages();
+  }
+
+  async function deletePkg(pkg){
+    if(!confirm('ลบแพ็กเกจ "' + pkg.name + '" ใช่หรือไม่?')) return;
+    packages = packages.filter(p => p.id !== pkg.id);
+    await savePackages();
+    renderPackages();
+  }
+
+  function openPkgPreview(pkg){
+    pkgPreviewText.textContent = buildPkgMessage(pkg);
+    pkgPreviewOverlay.classList.add('show');
+  }
+
+  async function movePkg(pkg, dir){
+    const idx = packages.findIndex(p => p.id === pkg.id);
+    const newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= packages.length) return;
+    [packages[idx], packages[newIdx]] = [packages[newIdx], packages[idx]];
+    await savePackages();
+    renderPackages();
+  }
+
+  function renderPackages(){
+    if(packages.length === 0){
+      listEl.innerHTML = '<div class="empty-state">ยังไม่มีแพ็กเกจ กด "เพิ่มแพ็กเกจใหม่" เพื่อเริ่มต้น</div>';
+      renderDashboard();
+      return;
+    }
+    listEl.innerHTML = '';
+    packages.forEach((pkg, idx) => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      card.style.setProperty('--accent', colorHex(pkg.color));
+
+      card.innerHTML = pkg.editing ? pkgEditTemplate(pkg) : pkgViewTemplate(pkg, idx, packages.length);
+      listEl.appendChild(card);
+
+      if(pkg.editing){
+        card.querySelector('.save-btn').addEventListener('click', () => savePkgEdit(pkg));
+        card.querySelector('.cancel-btn').addEventListener('click', () => togglePkgEdit(pkg));
+        card.querySelector('.delete-btn').addEventListener('click', () => deletePkg(pkg));
+      } else {
+        card.querySelector('.pkg-move-up').addEventListener('click', () => movePkg(pkg, -1));
+        card.querySelector('.pkg-move-down').addEventListener('click', () => movePkg(pkg, 1));
+        card.querySelector('.edit-btn').addEventListener('click', () => togglePkgEdit(pkg));
+        card.querySelector('.reset-btn').addEventListener('click', () => resetPkgCount(pkg));
+        card.querySelector('.copy-btn').addEventListener('click', () => copyForPackage(pkg));
+        card.querySelector('.preview-btn').addEventListener('click', () => openPkgPreview(pkg));
+        const teamToggle = card.querySelector('.pkg-teamlink-toggle');
+        if(teamToggle){
+          teamToggle.addEventListener('click', () => {
+            if(expandedTeamLinks.has(pkg.id)) expandedTeamLinks.delete(pkg.id);
+            else expandedTeamLinks.add(pkg.id);
+            renderPackages();
+          });
+        }
+        const teamCopyBtn = card.querySelector('.pkg-teamlink-copy');
+        if(teamCopyBtn){
+          teamCopyBtn.addEventListener('click', async () => {
+            const sv = shopVariants.find(x => x.id === teamCopyBtn.dataset.svid);
+            if(sv){
+              await copyShopLink(sv);
+              renderPackages();
+            }
+          });
+        }
+        const teamEditBtn = card.querySelector('.pkg-teamlink-edit');
+        if(teamEditBtn){
+          teamEditBtn.addEventListener('click', () => {
+            const sv = shopVariants.find(x => x.id === teamEditBtn.dataset.svid);
+            if(sv){
+              sv.editing = true;
+              renderPackages();
+            }
+          });
+        }
+        const teamPanel = card.querySelector('.pkg-teamlink-panel');
+        if(teamPanel && teamPanel.querySelector('.sv-save-btn')){
+          const sv = findMatchingShopVariant(pkg);
+          teamPanel.querySelector('.sv-save-btn').addEventListener('click', async () => {
+            await savePkgTeamLinkEdit(pkg, sv);
+          });
+          teamPanel.querySelector('.sv-cancel-btn').addEventListener('click', () => {
+            sv.editing = false;
+            renderPackages();
+          });
+          const svResetBtn = teamPanel.querySelector('.sv-reset-btn');
+          if(svResetBtn){
+            svResetBtn.addEventListener('click', () => {
+              document.getElementById('ddTemplate_' + pkg.id).value = SHOP_DEFAULT_TEMPLATE;
+            });
+          }
+          const svDeleteBtn = teamPanel.querySelector('.sv-delete-btn');
+          if(svDeleteBtn){
+            svDeleteBtn.addEventListener('click', async () => {
+              await deleteShopVariant(sv);
+              expandedTeamLinks.delete(pkg.id);
+              renderPackages();
+            });
+          }
+        }
+        const teamEmailInput = card.querySelector('.pkg-teamlink-email');
+        const teamCopyMsgBtn = card.querySelector('.pkg-teamlink-copymsg');
+        if(teamCopyMsgBtn){
+          teamCopyMsgBtn.addEventListener('click', async () => {
+            const sv = shopVariants.find(x => x.id === teamCopyMsgBtn.dataset.svid);
+            if(!sv) return;
+            const email = teamEmailInput ? teamEmailInput.value.trim() : '';
+            if(!email){
+              showToast('⚠️ กรุณาวางอีเมลลูกค้าก่อน');
+              if(teamEmailInput) teamEmailInput.focus();
+              return;
+            }
+            await copyText(buildShopMessage(sv, email));
+            showToast('✅ คัดลอกข้อความเรียบร้อย');
+            if(pkg.count < pkg.limit || pkg.allowOverLimit){
+              pkg.count += 1;
+              await savePackages();
+            }
+            renderPackages();
+            renderShopVariants();
+          });
+        }
+        const teamPreviewBtn = card.querySelector('.pkg-teamlink-preview');
+        if(teamPreviewBtn){
+          teamPreviewBtn.addEventListener('click', () => {
+            const sv = shopVariants.find(x => x.id === teamPreviewBtn.dataset.svid);
+            if(!sv) return;
+            const email = teamEmailInput ? teamEmailInput.value.trim() : '';
+            previewText.textContent = buildShopMessage(sv, email);
+            overlay.classList.add('show');
+          });
+        }
+        const teamClearBtn = card.querySelector('.pkg-teamlink-clear');
+        if(teamClearBtn){
+          teamClearBtn.addEventListener('click', () => {
+            if(teamEmailInput){ teamEmailInput.value = ''; teamEmailInput.focus(); }
+          });
+        }
+      }
+    });
+    renderDashboard();
+  }
+
+  function pkgTemplatePreview(pkg){
+    const n = pkg.previewLines || 4;
+    const lines = (pkg.template || '').split('\n').slice(0, n).join('\n');
+    return esc(lines);
+  }
+
+  const expandedTeamLinks = new Set();
+
+  function findMatchingShopVariant(pkg){
+    const m = pkg.name.match(/(15|30)\s*วัน/);
+    if(!m) return null;
+    const dayLabel = m[1] + ' วัน';
+    return shopVariants.find(v => v.name.trim() === dayLabel) || null;
+  }
+
+  function pkgTeamLinkEditForm(pkg, sv){
+    const c = svColors(sv);
+    return `
+      <div class="card-head"><div class="card-title">✏️ แก้ไข ${esc(sv.name)}</div></div>
+      <div class="field">
+        <label>📌 ชื่อรายการ</label>
+        <input id="ddName_${pkg.id}" type="text" value="${esc(sv.name)}">
+      </div>
+      <div class="field">
+        <label>📌 ลิงก์ทีม</label>
+        <input id="ddLink_${pkg.id}" type="text" value="${esc(sv.link)}">
+      </div>
+      <div class="field">
+        <label>📌 สีทุกส่วน (แก้ไขได้อิสระ)</label>
+        <div class="color-grid">
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorAccent_${pkg.id}" value="${c.accent}">
+            <span>กรอบการ์ด</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorCopyLink_${pkg.id}" value="${c.copyLink}">
+            <span>คัดลอกลิงก์</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorCopyMsg_${pkg.id}" value="${c.copyMsg}">
+            <span>คัดลอกข้อความ</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorEdit_${pkg.id}" value="${c.edit}">
+            <span>ปุ่มแก้ไข</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorPreview_${pkg.id}" value="${c.preview}">
+            <span>ปุ่มตัวอย่าง</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="ddColorClear_${pkg.id}" value="${c.clear}">
+            <span>ปุ่มล้างอีเมล</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความฟอร์ม</label>
+        <textarea id="ddTemplate_${pkg.id}" rows="14">${esc(sv.template)}</textarea>
+        <div class="hint">ใช้ <b>{{email}}</b> แทนตำแหน่งอีเมลลูกค้า และ <b>{{link}}</b> แทนตำแหน่งลิงก์ทีม</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-muted btn-compact sv-cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact sv-save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-ghost sv-reset-btn" style="width:100%;">↩️ กลับไปใช้ข้อความเริ่มต้น</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact sv-delete-btn btn-full-width">🗑️ ลบรายการนี้</button>
+      </div>
+    `;
+  }
+
+  async function savePkgTeamLinkEdit(pkg, sv){
+    const g = id => document.getElementById(id + '_' + pkg.id);
+    sv.name = g('ddName').value.trim() || sv.name;
+    sv.link = g('ddLink').value.trim();
+    sv.template = g('ddTemplate').value;
+    sv.colors = {
+      accent: g('ddColorAccent').value,
+      copyLink: g('ddColorCopyLink').value,
+      copyMsg: g('ddColorCopyMsg').value,
+      edit: g('ddColorEdit').value,
+      preview: g('ddColorPreview').value,
+      clear: g('ddColorClear').value
+    };
+    sv.editing = false;
+    await saveShopVariants();
+    showToast('💾 บันทึกแล้ว');
+    renderPackages();
+    renderShopVariants();
+  }
+
+  function pkgTeamLinkDropdown(pkg){
+    const sv = findMatchingShopVariant(pkg);
+    if(!sv) return '';
+    const isOpen = expandedTeamLinks.has(pkg.id);
+    const c = svColors(sv);
+    return `
+      <button class="pkg-teamlink-toggle" data-pkgid="${pkg.id}">
+        🔗 เมลร้านส่วนตัว (ทีมเดียวกัน) <span class="pkg-teamlink-arrow">${isOpen ? '▴' : '▾'}</span>
+      </button>
+      ${isOpen ? `
+        <div class="pkg-teamlink-panel">
+          ${sv.editing ? pkgTeamLinkEditForm(pkg, sv) : `
+            <div class="sv-shared-count">👤 ${pkg.count}/${pkg.limit} <span class="sv-shared-count-label">(นับรวมกับแบบเมลลูกค้า)</span></div>
+            <div class="link-display ${sv.link ? '' : 'empty'}" style="margin-bottom:8px;">${sv.link ? esc(sv.link) : 'ยังไม่ได้ใส่ลิงก์'}</div>
+            <div class="btn-row">
+              <button class="btn btn-md pkg-teamlink-copy" data-svid="${sv.id}" style="background:${c.copyLink}; color:#fff; box-shadow:none;">📋 คัดลอกลิงก์</button>
+              <button class="btn pkg-teamlink-edit" data-svid="${sv.id}" style="flex:0 0 auto; width:auto; padding:11px 18px; background:${c.edit}; color:var(--text);">✏️</button>
+            </div>
+            <div class="sv-divider">📧 วางอีเมลลูกค้า</div>
+            <div class="field">
+              <input class="pkg-teamlink-email" type="text" placeholder="customer@email.com" autocomplete="off" autocapitalize="off">
+            </div>
+            <button class="btn btn-md pkg-teamlink-copymsg" data-svid="${sv.id}" style="background:${c.copyMsg}; color:#fff; box-shadow:none;">📋 คัดลอกข้อความทั้งหมด</button>
+            <div class="btn-row" style="margin-top:10px;">
+              <button class="btn btn-md pkg-teamlink-preview" data-svid="${sv.id}" style="background:${c.preview}; color:var(--text);">👀 ดูตัวอย่าง</button>
+              <button class="btn btn-md pkg-teamlink-clear" style="background:${c.clear}; color:var(--text);">🗑️ ล้างอีเมล</button>
+            </div>
+          `}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function pkgViewTemplate(pkg, idx, total){
+    const full = pkg.count >= pkg.limit;
+    const disabled = full && !pkg.allowOverLimit;
+    const accent = colorHex(pkg.color);
+    const badgeGradient = `linear-gradient(160deg, ${lighten(accent, 40)} 0%, ${accent} 100%)`;
+    const titleColor = pkg.textColor || 'inherit';
+    return `
+      <div class="card-head">
+        <div class="card-title" style="color:${titleColor};">${colorDot(pkg.color)} ${esc(pkg.name)}</div>
+        <div class="pkg-reorder-btns">
+          <button class="pkg-move-up" ${idx === 0 ? 'disabled' : ''} title="เลื่อนขึ้น">▲</button>
+          <button class="pkg-move-down" ${idx === total - 1 ? 'disabled' : ''} title="เลื่อนลง">▼</button>
+        </div>
+        <span class="status-pill ${full ? 'status-full' : 'status-ok'}">${full ? '🔴 เต็มแล้ว' : '🟢 พร้อมใช้งาน'}</span>
+      </div>
+      <div class="pkg-panel">
+        <div class="pkg-panel-text">${pkgTemplatePreview(pkg)}</div>
+        <button class="pkg-stat-badge copy-btn" style="background:${badgeGradient};" ${disabled ? 'disabled' : ''} title="${disabled ? 'ใช้งานครบจำนวนแล้ว' : 'แตะเพื่อคัดลอกข้อความ'}">
+          <span class="pkg-stat-icon">📋</span>
+          <span class="pkg-stat-label">จำนวนที่<br>กดคัดลอก</span>
+          <span class="pkg-stat-value"><span class="big">${pkg.count}</span> <span class="small">/ ${pkg.limit}</span></span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-pink-style btn-compact preview-btn">👀 ตัวอย่าง</button>
+        <button class="btn btn-peach-style btn-compact edit-btn">✏️ แก้ไข</button>
+        <button class="btn btn-blue-style btn-compact reset-btn">🔄 รีเซ็ต</button>
+      </div>
+      ${pkgTeamLinkDropdown(pkg)}
+      ${(pkg.showNote !== false && pkg.note) ? `<div class="pkg-note">📝 ${esc(pkg.note)}</div>` : ''}
+    `;
+  }
+
+  function pkgEditTemplate(pkg){
+    return `
+      <div class="card-head">
+        <div class="card-title">${colorDot(pkg.color)} แก้ไขแพ็กเกจ</div>
+      </div>
+      <div class="field">
+        <label>📌 ชื่อแพ็กเกจ</label>
+        <input id="f_name_${pkg.id}" type="text" value="${esc(pkg.name)}">
+      </div>
+      <div class="field">
+        <div class="two-col-row">
+          <div>
+            <label>📌 จำนวนที่คัดลอกแล้ว</label>
+            <input id="f_count_${pkg.id}" type="number" min="0" value="${pkg.count}">
+          </div>
+          <div>
+            <label>📌 จำนวนสูงสุด</label>
+            <input id="f_limit_${pkg.id}" type="number" min="1" value="${pkg.limit}">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีการ์ด (กรอบ/จุด/กล่องคัดลอก)</label>
+        <div class="color-input-row">
+          <input type="color" id="f_color_${pkg.id}" value="${colorHex(pkg.color)}">
+          <span>เลือกสีอิสระได้ทุกโทน</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีตัวอักษรชื่อแพ็กเกจ</label>
+        <div class="color-input-row">
+          <input type="color" id="f_textColor_${pkg.id}" value="${pkg.textColor || '#4A3238'}">
+          <span>เลือกสีตัวหนังสือได้อิสระ</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความ Template</label>
+        <textarea id="f_template_${pkg.id}" rows="14">${esc(pkg.template)}</textarea>
+        <div class="hint">ตัวแปรที่ใช้ได้: {{package_name}} {{team}} {{exp}} {{link}} {{email}} {{password}} {{guide}}</div>
+      </div>
+      <div class="field">
+        <label>📌 จำนวนบรรทัดที่โชว์ในการ์ด (ตัวอย่างข้อความ)</label>
+        <input id="f_previewLines_${pkg.id}" type="number" min="1" max="15" value="${pkg.previewLines || 4}">
+      </div>
+      <div class="field">
+        <label>📝 โน้ต (บันทึกส่วนตัว ไม่แสดงให้ลูกค้าเห็น)</label>
+        <textarea id="f_note_${pkg.id}" rows="3" placeholder="เช่น เตือนตัวเอง, สถานะพิเศษ, ฯลฯ">${esc(pkg.note || '')}</textarea>
+        <div class="checkline">
+          <input type="checkbox" id="f_showNote_${pkg.id}" ${pkg.showNote !== false ? 'checked' : ''}>
+          <label for="f_showNote_${pkg.id}">แสดงกล่องโน้ตบนการ์ด</label>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn btn-muted btn-compact cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact delete-btn btn-full-width">🗑️ ลบแพ็กเกจนี้</button>
+      </div>
+    `;
+  }
+
+  // Add package flow
+  const colorSwatches = document.getElementById('colorSwatches');
+  const newPkgColorPicker = document.getElementById('newPkgColorPicker');
+  PKG_COLORS.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (c.key === addColorSelected ? ' selected' : '');
+    sw.style.background = c.hex;
+    sw.dataset.key = c.key;
+    sw.addEventListener('click', () => {
+      addColorSelected = c.hex;
+      newPkgColorPicker.value = c.hex;
+      document.querySelectorAll('#pkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+      sw.classList.add('selected');
+    });
+    colorSwatches.appendChild(sw);
+  });
+  newPkgColorPicker.addEventListener('input', () => {
+    addColorSelected = newPkgColorPicker.value;
+    document.querySelectorAll('#pkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+  });
+
+  document.getElementById('addPackageBtn').addEventListener('click', () => {
+    document.getElementById('newPkgName').value = '';
+    document.getElementById('newPkgLimit').value = '';
+    addColorSelected = '#FF8FB1';
+    newPkgColorPicker.value = '#FF8FB1';
+    document.getElementById('newPkgTextColorPicker').value = '#4A3238';
+    document.querySelectorAll('#pkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+    pkgAddOverlay.classList.add('show');
+  });
+  document.getElementById('cancelAddBtn').addEventListener('click', () => pkgAddOverlay.classList.remove('show'));
+  pkgAddOverlay.addEventListener('click', e => { if(e.target === pkgAddOverlay) pkgAddOverlay.classList.remove('show'); });
+
+  document.getElementById('confirmAddBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newPkgName').value.trim();
+    const limitVal = parseInt(document.getElementById('newPkgLimit').value, 10);
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อแพ็กเกจ');
+      return;
+    }
+    const pkg = {
+      id: 'pkg_' + Date.now(),
+      name: name,
+      color: addColorSelected,
+      textColor: document.getElementById('newPkgTextColorPicker').value,
+      team: '',
+      exp: '',
+      link: '',
+      password: 'hopebi#bts7',
+      guide: 'https://dif.link/cvp.02',
+      template: PKG_DEFAULT_TEMPLATE,
+      limit: isNaN(limitVal) || limitVal < 1 ? 100 : limitVal,
+      count: 0,
+      allowOverLimit: false,
+      editing: true
+    };
+    packages.push(pkg);
+    await savePackages();
+    pkgAddOverlay.classList.remove('show');
+    renderPackages();
+    showToast('✅ สร้างแพ็กเกจแล้ว กรอกรายละเอียดแล้วกดบันทึก');
+  });
+
+  document.getElementById('pkgClosePreviewBtn').addEventListener('click', () => pkgPreviewOverlay.classList.remove('show'));
+  pkgPreviewOverlay.addEventListener('click', e => { if(e.target === pkgPreviewOverlay) pkgPreviewOverlay.classList.remove('show'); });
+
+  loadPackages();
+
+  // ---------- Microsoft: แบบเมลลูกค้า (package tool logic, mirrors Canva) ----------
+  const MSPKG_STORAGE_KEY = 'ms-packages-v1';
+  const MSPKG_COLORS = [
+    {key:'blue',   hex:'#00A4EF', emoji:'💙'},
+    {key:'green',  hex:'#7ED9A8', emoji:'💚'},
+    {key:'purple', hex:'#B79CED', emoji:'💜'},
+    {key:'pink',   hex:'#FF8FB1', emoji:'🩷'},
+    {key:'yellow', hex:'#F0C550', emoji:'💛'},
+  ];
+
+  const MSPKG_DEFAULT_TEMPLATE =
+`🪟 {{package_name}} (เมลลูกค้า) ✨
+
+👥 team - {{team}}
+
+👀 exp. - {{exp}}
+
+⚠️ 3 สิ่งสำคัญมาก อ่านก่อนใช้งาน / ขั้นตอนต่าง ๆ
+{{guide}}
+
+📧 mail :
+{{email}}
+
+🔑 pass :
+{{password}}
+
+🐝 นำเมลลงชื่อเข้าใช้ได้เลย
+
+• login > ดำเนินการต่อด้วยอีเมล
+• ห้ามเข้าด้วย Google
+
+🔗 ลิงก์ทีม
+{{link}}
+
+🌷 เข้าได้แล้วรบกวนแคปภาพติดเมลมาให้แอดมินตรวจสอบ`;
+
+  function mspkgDefaultPackages(){
+    const defs = [
+      {name:'Microsoft 365 3 วัน',  color:'blue',   team:'', exp:'', limit:100},
+      {name:'Microsoft 365 7 วัน',  color:'green',  team:'', exp:'', limit:60},
+      {name:'Microsoft 365 10 วัน', color:'purple', team:'', exp:'', limit:80},
+      {name:'Microsoft 365 15 วัน', color:'pink',   team:'', exp:'', limit:40},
+      {name:'Microsoft 365 30 วัน', color:'yellow', team:'', exp:'', limit:20},
+    ];
+    return defs.map((d, i) => ({
+      id: 'mspkg_' + Date.now() + '_' + i,
+      name: d.name,
+      color: d.color,
+      team: d.team,
+      exp: d.exp,
+      link: '',
+      password: 'รอแอดมินกรอก',
+      guide: '',
+      template: MSPKG_DEFAULT_TEMPLATE,
+      limit: d.limit,
+      count: 0,
+      allowOverLimit: false,
+      editing: false
+    }));
+  }
+
+  let msPackages = [];
+  let msAddColorSelected = 'blue';
+
+  const msPkgListEl = document.getElementById('msPackageList');
+  const msPkgAddOverlay = document.getElementById('msPkgAddOverlay');
+  const msPkgPreviewOverlay = document.getElementById('msPkgPreviewOverlay');
+  const msPkgPreviewText = document.getElementById('msPkgPreviewText');
+
+  function msPkgColorHex(color){
+    if(color && color.charAt(0) === '#') return color;
+    const c = MSPKG_COLORS.find(c => c.key === color);
+    return c ? c.hex : MSPKG_COLORS[0].hex;
+  }
+  function msPkgColorDot(color){
+    return `<span class="pkg-color-dot" style="background:${msPkgColorHex(color)}"></span>`;
+  }
+
+  async function msLoadPackages(){
+    try{
+      const res = await window.storage.get(MSPKG_STORAGE_KEY, false);
+      if(res && res.value){
+        msPackages = JSON.parse(res.value);
+      }else{
+        msPackages = mspkgDefaultPackages();
+        await msSavePackages();
+      }
+    }catch(e){
+      msPackages = mspkgDefaultPackages();
+      await msSavePackages();
+    }
+    msRenderPackages();
+    if(typeof msRenderVariants === 'function' && msVariants.length) msRenderVariants();
+  }
+
+  async function msSavePackages(){
+    try{
+      await window.storage.set(MSPKG_STORAGE_KEY, JSON.stringify(msPackages), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function msBuildPkgMessage(pkg){
+    const vars = {
+      package_name: pkg.name || '-',
+      team: pkg.team || '-',
+      exp: pkg.exp || '-',
+      link: pkg.link || '-',
+      password: pkg.password || '-',
+      guide: pkg.guide || '-',
+      email: ''
+    };
+    return (pkg.template || MSPKG_DEFAULT_TEMPLATE).replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
+  }
+
+  async function msCopyForPackage(pkg){
+    if(pkg.count >= pkg.limit && !pkg.allowOverLimit){
+      showToast('🔴 แพ็กเกจนี้เต็มแล้ว');
+      return;
+    }
+    await copyText(msBuildPkgMessage(pkg));
+    pkg.count += 1;
+    await msSavePackages();
+    showToast('✅ คัดลอกข้อความเรียบร้อย');
+    msRenderPackages();
+  }
+
+  function msTogglePkgEdit(pkg){
+    pkg.editing = !pkg.editing;
+    msRenderPackages();
+  }
+
+  async function msSavePkgEdit(pkg){
+    const g = id => document.getElementById(id + '_' + pkg.id);
+    pkg.name = g('mf_name').value.trim() || pkg.name;
+    pkg.color = g('mf_color').value;
+    pkg.textColor = g('mf_textColor').value;
+    pkg.template = g('mf_template').value;
+    pkg.note = g('mf_note').value;
+    pkg.showNote = g('mf_showNote').checked;
+    const countVal = parseInt(g('mf_count').value, 10);
+    const limitVal = parseInt(g('mf_limit').value, 10);
+    const previewLinesVal = parseInt(g('mf_previewLines').value, 10);
+    pkg.count = isNaN(countVal) || countVal < 0 ? pkg.count : countVal;
+    pkg.limit = isNaN(limitVal) || limitVal < 1 ? pkg.limit : limitVal;
+    pkg.previewLines = isNaN(previewLinesVal) || previewLinesVal < 1 ? 4 : previewLinesVal;
+    pkg.editing = false;
+    await msSavePackages();
+    showToast('💾 บันทึกแพ็กเกจแล้ว');
+    msRenderPackages();
+  }
+
+  async function msResetPkgCount(pkg){
+    pkg.count = 0;
+    await msSavePackages();
+    showToast('🔄 รีเซ็ตจำนวนแล้ว');
+    msRenderPackages();
+  }
+
+  async function msDeletePkg(pkg){
+    if(!confirm('ลบแพ็กเกจ "' + pkg.name + '" ใช่หรือไม่?')) return;
+    msPackages = msPackages.filter(p => p.id !== pkg.id);
+    await msSavePackages();
+    msRenderPackages();
+  }
+
+  function msOpenPkgPreview(pkg){
+    msPkgPreviewText.textContent = msBuildPkgMessage(pkg);
+    msPkgPreviewOverlay.classList.add('show');
+  }
+
+  async function msMovePkg(pkg, dir){
+    const idx = msPackages.findIndex(p => p.id === pkg.id);
+    const newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= msPackages.length) return;
+    [msPackages[idx], msPackages[newIdx]] = [msPackages[newIdx], msPackages[idx]];
+    await msSavePackages();
+    msRenderPackages();
+  }
+
+  const msExpandedTeamLinks = new Set();
+
+  function msFindMatchingShopVariant(pkg){
+    const m = pkg.name.match(/(15|30)\s*วัน/);
+    if(!m) return null;
+    const dayLabel = m[1] + ' วัน';
+    return msVariants.find(v => v.name.trim() === dayLabel) || null;
+  }
+
+  function msPkgTeamLinkEditForm(pkg, sv){
+    const c = msColors(sv);
+    return `
+      <div class="card-head"><div class="card-title">✏️ แก้ไข ${esc(sv.name)}</div></div>
+      <div class="field">
+        <label>📌 ชื่อรายการ</label>
+        <input id="msddName_${pkg.id}" type="text" value="${esc(sv.name)}">
+      </div>
+      <div class="field">
+        <label>📌 ลิงก์ทีม</label>
+        <input id="msddLink_${pkg.id}" type="text" value="${esc(sv.link)}">
+      </div>
+      <div class="field">
+        <label>📌 สีทุกส่วน (แก้ไขได้อิสระ)</label>
+        <div class="color-grid">
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorAccent_${pkg.id}" value="${c.accent}">
+            <span>กรอบการ์ด</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorCopyLink_${pkg.id}" value="${c.copyLink}">
+            <span>คัดลอกลิงก์</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorCopyMsg_${pkg.id}" value="${c.copyMsg}">
+            <span>คัดลอกข้อความ</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorEdit_${pkg.id}" value="${c.edit}">
+            <span>ปุ่มแก้ไข</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorPreview_${pkg.id}" value="${c.preview}">
+            <span>ปุ่มตัวอย่าง</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msddColorClear_${pkg.id}" value="${c.clear}">
+            <span>ปุ่มล้างอีเมล</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความฟอร์ม</label>
+        <textarea id="msddTemplate_${pkg.id}" rows="14">${esc(sv.template)}</textarea>
+        <div class="hint">ใช้ <b>{{email}}</b> แทนตำแหน่งอีเมลลูกค้า และ <b>{{link}}</b> แทนตำแหน่งลิงก์ทีม</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-muted btn-compact sv-cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact sv-save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-ghost sv-reset-btn" style="width:100%;">↩️ กลับไปใช้ข้อความเริ่มต้น</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact sv-delete-btn btn-full-width">🗑️ ลบรายการนี้</button>
+      </div>
+    `;
+  }
+
+  async function msSavePkgTeamLinkEdit(pkg, sv){
+    const g = id => document.getElementById(id + '_' + pkg.id);
+    sv.name = g('msddName').value.trim() || sv.name;
+    sv.link = g('msddLink').value.trim();
+    sv.template = g('msddTemplate').value;
+    sv.colors = {
+      accent: g('msddColorAccent').value,
+      copyLink: g('msddColorCopyLink').value,
+      copyMsg: g('msddColorCopyMsg').value,
+      edit: g('msddColorEdit').value,
+      preview: g('msddColorPreview').value,
+      clear: g('msddColorClear').value
+    };
+    sv.editing = false;
+    await msSaveVariants();
+    showToast('💾 บันทึกแล้ว');
+    msRenderPackages();
+    msRenderVariants();
+  }
+
+  function msPkgTeamLinkDropdown(pkg){
+    const sv = msFindMatchingShopVariant(pkg);
+    if(!sv) return '';
+    const isOpen = msExpandedTeamLinks.has(pkg.id);
+    const c = msColors(sv);
+    return `
+      <button class="pkg-teamlink-toggle" data-pkgid="${pkg.id}">
+        🔗 แบบส่วนตัว (ทีมเดียวกัน) <span class="pkg-teamlink-arrow">${isOpen ? '▴' : '▾'}</span>
+      </button>
+      ${isOpen ? `
+        <div class="pkg-teamlink-panel">
+          ${sv.editing ? msPkgTeamLinkEditForm(pkg, sv) : `
+            <div class="sv-shared-count">👤 ${pkg.count}/${pkg.limit} <span class="sv-shared-count-label">(นับรวมกับแบบเมลลูกค้า)</span></div>
+            <div class="link-display ${sv.link ? '' : 'empty'}" style="margin-bottom:8px;">${sv.link ? esc(sv.link) : 'ยังไม่ได้ใส่ลิงก์'}</div>
+            <div class="btn-row">
+              <button class="btn btn-md mspkg-teamlink-copy" data-svid="${sv.id}" style="background:${c.copyLink}; color:#fff; box-shadow:none;">📋 คัดลอกลิงก์</button>
+              <button class="btn mspkg-teamlink-edit" data-svid="${sv.id}" style="flex:0 0 auto; width:auto; padding:11px 18px; background:${c.edit}; color:var(--text);">✏️</button>
+            </div>
+            <div class="sv-divider">📧 วางอีเมลลูกค้า</div>
+            <div class="field">
+              <input class="mspkg-teamlink-email" type="text" placeholder="customer@email.com" autocomplete="off" autocapitalize="off">
+            </div>
+            <button class="btn btn-md mspkg-teamlink-copymsg" data-svid="${sv.id}" style="background:${c.copyMsg}; color:#fff; box-shadow:none;">📋 คัดลอกข้อความทั้งหมด</button>
+            <div class="btn-row" style="margin-top:10px;">
+              <button class="btn btn-md mspkg-teamlink-preview" data-svid="${sv.id}" style="background:${c.preview}; color:var(--text);">👀 ดูตัวอย่าง</button>
+              <button class="btn btn-md mspkg-teamlink-clear" style="background:${c.clear}; color:var(--text);">🗑️ ล้างอีเมล</button>
+            </div>
+          `}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  function msRenderPackages(){
+    if(msPackages.length === 0){
+      msPkgListEl.innerHTML = '<div class="empty-state">ยังไม่มีแพ็กเกจ กด "เพิ่มแพ็กเกจใหม่" เพื่อเริ่มต้น</div>';
+      renderDashboard();
+      return;
+    }
+    msPkgListEl.innerHTML = '';
+    msPackages.forEach((pkg, idx) => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      card.style.setProperty('--accent', msPkgColorHex(pkg.color));
+
+      card.innerHTML = pkg.editing ? msPkgEditTemplate(pkg) : msPkgViewTemplate(pkg, idx, msPackages.length);
+      msPkgListEl.appendChild(card);
+
+      if(pkg.editing){
+        card.querySelector('.save-btn').addEventListener('click', () => msSavePkgEdit(pkg));
+        card.querySelector('.cancel-btn').addEventListener('click', () => msTogglePkgEdit(pkg));
+        card.querySelector('.delete-btn').addEventListener('click', () => msDeletePkg(pkg));
+      } else {
+        card.querySelector('.pkg-move-up').addEventListener('click', () => msMovePkg(pkg, -1));
+        card.querySelector('.pkg-move-down').addEventListener('click', () => msMovePkg(pkg, 1));
+        card.querySelector('.edit-btn').addEventListener('click', () => msTogglePkgEdit(pkg));
+        card.querySelector('.reset-btn').addEventListener('click', () => msResetPkgCount(pkg));
+        card.querySelector('.copy-btn').addEventListener('click', () => msCopyForPackage(pkg));
+        card.querySelector('.preview-btn').addEventListener('click', () => msOpenPkgPreview(pkg));
+        const msTeamToggle = card.querySelector('.pkg-teamlink-toggle');
+        if(msTeamToggle){
+          msTeamToggle.addEventListener('click', () => {
+            if(msExpandedTeamLinks.has(pkg.id)) msExpandedTeamLinks.delete(pkg.id);
+            else msExpandedTeamLinks.add(pkg.id);
+            msRenderPackages();
+          });
+        }
+        const msTeamCopyBtn = card.querySelector('.mspkg-teamlink-copy');
+        if(msTeamCopyBtn){
+          msTeamCopyBtn.addEventListener('click', async () => {
+            const sv = msVariants.find(x => x.id === msTeamCopyBtn.dataset.svid);
+            if(sv){
+              await msCopyLink(sv);
+              msRenderPackages();
+            }
+          });
+        }
+        const msTeamEditBtn = card.querySelector('.mspkg-teamlink-edit');
+        if(msTeamEditBtn){
+          msTeamEditBtn.addEventListener('click', () => {
+            const sv = msVariants.find(x => x.id === msTeamEditBtn.dataset.svid);
+            if(sv){
+              sv.editing = true;
+              msRenderPackages();
+            }
+          });
+        }
+        const msTeamPanel = card.querySelector('.pkg-teamlink-panel');
+        if(msTeamPanel && msTeamPanel.querySelector('.sv-save-btn')){
+          const sv = msFindMatchingShopVariant(pkg);
+          msTeamPanel.querySelector('.sv-save-btn').addEventListener('click', async () => {
+            await msSavePkgTeamLinkEdit(pkg, sv);
+          });
+          msTeamPanel.querySelector('.sv-cancel-btn').addEventListener('click', () => {
+            sv.editing = false;
+            msRenderPackages();
+          });
+          const msSvResetBtn = msTeamPanel.querySelector('.sv-reset-btn');
+          if(msSvResetBtn){
+            msSvResetBtn.addEventListener('click', () => {
+              document.getElementById('msddTemplate_' + pkg.id).value = MS_DEFAULT_TEMPLATE;
+            });
+          }
+          const msSvDeleteBtn = msTeamPanel.querySelector('.sv-delete-btn');
+          if(msSvDeleteBtn){
+            msSvDeleteBtn.addEventListener('click', async () => {
+              await msDeleteVariant(sv);
+              msExpandedTeamLinks.delete(pkg.id);
+              msRenderPackages();
+            });
+          }
+        }
+        const msTeamEmailInput = card.querySelector('.mspkg-teamlink-email');
+        const msTeamCopyMsgBtn = card.querySelector('.mspkg-teamlink-copymsg');
+        if(msTeamCopyMsgBtn){
+          msTeamCopyMsgBtn.addEventListener('click', async () => {
+            const sv = msVariants.find(x => x.id === msTeamCopyMsgBtn.dataset.svid);
+            if(!sv) return;
+            const email = msTeamEmailInput ? msTeamEmailInput.value.trim() : '';
+            if(!email){
+              showToast('⚠️ กรุณาวางอีเมลลูกค้าก่อน');
+              if(msTeamEmailInput) msTeamEmailInput.focus();
+              return;
+            }
+            await copyText(msBuildMessage(sv, email));
+            showToast('✅ คัดลอกข้อความเรียบร้อย');
+            if(pkg.count < pkg.limit || pkg.allowOverLimit){
+              pkg.count += 1;
+              await msSavePackages();
+            }
+            msRenderPackages();
+            msRenderVariants();
+          });
+        }
+        const msTeamPreviewBtn = card.querySelector('.mspkg-teamlink-preview');
+        if(msTeamPreviewBtn){
+          msTeamPreviewBtn.addEventListener('click', () => {
+            const sv = msVariants.find(x => x.id === msTeamPreviewBtn.dataset.svid);
+            if(!sv) return;
+            const email = msTeamEmailInput ? msTeamEmailInput.value.trim() : '';
+            msPreviewText.textContent = msBuildMessage(sv, email);
+            msOverlay.classList.add('show');
+          });
+        }
+        const msTeamClearBtn = card.querySelector('.mspkg-teamlink-clear');
+        if(msTeamClearBtn){
+          msTeamClearBtn.addEventListener('click', () => {
+            if(msTeamEmailInput){ msTeamEmailInput.value = ''; msTeamEmailInput.focus(); }
+          });
+        }
+      }
+    });
+    renderDashboard();
+  }
+
+  function msPkgTemplatePreview(pkg){
+    const n = pkg.previewLines || 4;
+    const lines = (pkg.template || '').split('\n').slice(0, n).join('\n');
+    return esc(lines);
+  }
+
+  function msPkgViewTemplate(pkg, idx, total){
+    const full = pkg.count >= pkg.limit;
+    const disabled = full && !pkg.allowOverLimit;
+    const accent = msPkgColorHex(pkg.color);
+    const badgeGradient = `linear-gradient(160deg, ${lighten(accent, 40)} 0%, ${accent} 100%)`;
+    const titleColor = pkg.textColor || 'inherit';
+    return `
+      <div class="card-head">
+        <div class="card-title" style="color:${titleColor};">${msPkgColorDot(pkg.color)} ${esc(pkg.name)}</div>
+        <div class="pkg-reorder-btns">
+          <button class="pkg-move-up" ${idx === 0 ? 'disabled' : ''} title="เลื่อนขึ้น">▲</button>
+          <button class="pkg-move-down" ${idx === total - 1 ? 'disabled' : ''} title="เลื่อนลง">▼</button>
+        </div>
+        <span class="status-pill ${full ? 'status-full' : 'status-ok'}">${full ? '🔴 เต็มแล้ว' : '🟢 พร้อมใช้งาน'}</span>
+      </div>
+      <div class="pkg-panel">
+        <div class="pkg-panel-text">${msPkgTemplatePreview(pkg)}</div>
+        <button class="pkg-stat-badge copy-btn" style="background:${badgeGradient};" ${disabled ? 'disabled' : ''} title="${disabled ? 'ใช้งานครบจำนวนแล้ว' : 'แตะเพื่อคัดลอกข้อความ'}">
+          <span class="pkg-stat-icon">📋</span>
+          <span class="pkg-stat-label">จำนวนที่<br>กดคัดลอก</span>
+          <span class="pkg-stat-value"><span class="big">${pkg.count}</span> <span class="small">/ ${pkg.limit}</span></span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-pink-style btn-compact preview-btn">👀 ตัวอย่าง</button>
+        <button class="btn btn-peach-style btn-compact edit-btn">✏️ แก้ไข</button>
+        <button class="btn btn-blue-style btn-compact reset-btn">🔄 รีเซ็ต</button>
+      </div>
+      ${msPkgTeamLinkDropdown(pkg)}
+      ${(pkg.showNote !== false && pkg.note) ? `<div class="pkg-note">📝 ${esc(pkg.note)}</div>` : ''}
+    `;
+  }
+
+  function msPkgEditTemplate(pkg){
+    return `
+      <div class="card-head">
+        <div class="card-title">${msPkgColorDot(pkg.color)} แก้ไขแพ็กเกจ</div>
+      </div>
+      <div class="field">
+        <label>📌 ชื่อแพ็กเกจ</label>
+        <input id="mf_name_${pkg.id}" type="text" value="${esc(pkg.name)}">
+      </div>
+      <div class="field">
+        <div class="two-col-row">
+          <div>
+            <label>📌 จำนวนที่คัดลอกแล้ว</label>
+            <input id="mf_count_${pkg.id}" type="number" min="0" value="${pkg.count}">
+          </div>
+          <div>
+            <label>📌 จำนวนสูงสุด</label>
+            <input id="mf_limit_${pkg.id}" type="number" min="1" value="${pkg.limit}">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีการ์ด (กรอบ/จุด/กล่องคัดลอก)</label>
+        <div class="color-input-row">
+          <input type="color" id="mf_color_${pkg.id}" value="${msPkgColorHex(pkg.color)}">
+          <span>เลือกสีอิสระได้ทุกโทน</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีตัวอักษรชื่อแพ็กเกจ</label>
+        <div class="color-input-row">
+          <input type="color" id="mf_textColor_${pkg.id}" value="${pkg.textColor || '#4A3238'}">
+          <span>เลือกสีตัวหนังสือได้อิสระ</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความ Template</label>
+        <textarea id="mf_template_${pkg.id}" rows="14">${esc(pkg.template)}</textarea>
+        <div class="hint">ตัวแปรที่ใช้ได้: {{package_name}} {{team}} {{exp}} {{link}} {{email}} {{password}} {{guide}}</div>
+      </div>
+      <div class="field">
+        <label>📌 จำนวนบรรทัดที่โชว์ในการ์ด (ตัวอย่างข้อความ)</label>
+        <input id="mf_previewLines_${pkg.id}" type="number" min="1" max="15" value="${pkg.previewLines || 4}">
+      </div>
+      <div class="field">
+        <label>📝 โน้ต (บันทึกส่วนตัว ไม่แสดงให้ลูกค้าเห็น)</label>
+        <textarea id="mf_note_${pkg.id}" rows="3" placeholder="เช่น เตือนตัวเอง, สถานะพิเศษ, ฯลฯ">${esc(pkg.note || '')}</textarea>
+        <div class="checkline">
+          <input type="checkbox" id="mf_showNote_${pkg.id}" ${pkg.showNote !== false ? 'checked' : ''}>
+          <label for="mf_showNote_${pkg.id}">แสดงกล่องโน้ตบนการ์ด</label>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn btn-muted btn-compact cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact delete-btn btn-full-width">🗑️ ลบแพ็กเกจนี้</button>
+      </div>
+    `;
+  }
+
+  // Add MS package flow
+  const msColorSwatches = document.getElementById('msColorSwatches');
+  const newMsPkgColorPicker = document.getElementById('newMsPkgColorPicker');
+  MSPKG_COLORS.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (c.key === msAddColorSelected ? ' selected' : '');
+    sw.style.background = c.hex;
+    sw.dataset.key = c.key;
+    sw.addEventListener('click', () => {
+      msAddColorSelected = c.hex;
+      newMsPkgColorPicker.value = c.hex;
+      document.querySelectorAll('#msPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+      sw.classList.add('selected');
+    });
+    msColorSwatches.appendChild(sw);
+  });
+  newMsPkgColorPicker.addEventListener('input', () => {
+    msAddColorSelected = newMsPkgColorPicker.value;
+    document.querySelectorAll('#msPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+  });
+
+  document.getElementById('addMsPackageBtn').addEventListener('click', () => {
+    document.getElementById('newMsPkgName').value = '';
+    document.getElementById('newMsPkgLimit').value = '';
+    msAddColorSelected = '#00A4EF';
+    newMsPkgColorPicker.value = '#00A4EF';
+    document.getElementById('newMsPkgTextColorPicker').value = '#4A3238';
+    document.querySelectorAll('#msPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+    msPkgAddOverlay.classList.add('show');
+  });
+  document.getElementById('msPkgCancelAddBtn').addEventListener('click', () => msPkgAddOverlay.classList.remove('show'));
+  msPkgAddOverlay.addEventListener('click', e => { if(e.target === msPkgAddOverlay) msPkgAddOverlay.classList.remove('show'); });
+
+  document.getElementById('msPkgConfirmAddBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newMsPkgName').value.trim();
+    const limitVal = parseInt(document.getElementById('newMsPkgLimit').value, 10);
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อแพ็กเกจ');
+      return;
+    }
+    const pkg = {
+      id: 'mspkg_' + Date.now(),
+      name: name,
+      color: msAddColorSelected,
+      textColor: document.getElementById('newMsPkgTextColorPicker').value,
+      team: '',
+      exp: '',
+      link: '',
+      password: 'รอแอดมินกรอก',
+      guide: '',
+      template: MSPKG_DEFAULT_TEMPLATE,
+      limit: isNaN(limitVal) || limitVal < 1 ? 100 : limitVal,
+      count: 0,
+      allowOverLimit: false,
+      editing: true
+    };
+    msPackages.push(pkg);
+    await msSavePackages();
+    msPkgAddOverlay.classList.remove('show');
+    msRenderPackages();
+    showToast('✅ สร้างแพ็กเกจแล้ว กรอกรายละเอียดแล้วกดบันทึก');
+  });
+
+  document.getElementById('msPkgClosePreviewBtn').addEventListener('click', () => msPkgPreviewOverlay.classList.remove('show'));
+  msPkgPreviewOverlay.addEventListener('click', e => { if(e.target === msPkgPreviewOverlay) msPkgPreviewOverlay.classList.remove('show'); });
+
+  msLoadPackages();
+
+  // ---------- เมลร้านแบบรวม: แบบเมลลูกค้า (package tool logic, mirrors Canva/Microsoft) ----------
+  const CBPKG_STORAGE_KEY = 'combined-packages-v1';
+  const CBPKG_COLORS = [
+    {key:'blue',   hex:'#00A4EF', emoji:'💙'},
+    {key:'green',  hex:'#7ED9A8', emoji:'💚'},
+    {key:'purple', hex:'#B79CED', emoji:'💜'},
+    {key:'pink',   hex:'#FF8FB1', emoji:'🩷'},
+    {key:'yellow', hex:'#F0C550', emoji:'💛'},
+  ];
+
+  const CBPKG_DEFAULT_TEMPLATE =
+`📮 {{package_name}} (เมลลูกค้า) ✨
+
+👥 team - {{team}}
+
+👀 exp. - {{exp}}
+
+⚠️ 3 สิ่งสำคัญมาก อ่านก่อนใช้งาน / ขั้นตอนต่าง ๆ
+{{guide}}
+
+📧 mail :
+{{email}}
+
+🔑 pass :
+{{password}}
+
+🐝 นำเมลลงชื่อเข้าใช้ได้เลย
+
+• login > ดำเนินการต่อด้วยอีเมล
+• ห้ามเข้าด้วย Google
+
+🔗 ลิงก์ทีม
+{{link}}
+
+🌷 เข้าได้แล้วรบกวนแคปภาพติดเมลมาให้แอดมินตรวจสอบ`;
+
+  function cbpkgDefaultPackages(){
+    const defs = [
+      {name:'แพ็กเกจ 3 วัน',  color:'blue',   team:'', exp:'', limit:100},
+      {name:'แพ็กเกจ 7 วัน',  color:'green',  team:'', exp:'', limit:60},
+      {name:'แพ็กเกจ 10 วัน', color:'purple', team:'', exp:'', limit:80},
+      {name:'แพ็กเกจ 15 วัน', color:'pink',   team:'', exp:'', limit:40},
+      {name:'แพ็กเกจ 30 วัน', color:'yellow', team:'', exp:'', limit:20},
+    ];
+    return defs.map((d, i) => ({
+      id: 'cbpkg_' + Date.now() + '_' + i,
+      name: d.name,
+      color: d.color,
+      team: d.team,
+      exp: d.exp,
+      link: '',
+      password: 'รอแอดมินกรอก',
+      guide: '',
+      template: CBPKG_DEFAULT_TEMPLATE,
+      limit: d.limit,
+      count: 0,
+      allowOverLimit: false,
+      editing: false
+    }));
+  }
+
+  let cbPackages = [];
+  let cbAddColorSelected = 'blue';
+
+  const cbPkgListEl = document.getElementById('cbPackageList');
+  const cbPkgAddOverlay = document.getElementById('cbPkgAddOverlay');
+  const cbPkgPreviewOverlay = document.getElementById('cbPkgPreviewOverlay');
+  const cbPkgPreviewText = document.getElementById('cbPkgPreviewText');
+
+  function cbPkgColorHex(color){
+    if(color && color.charAt(0) === '#') return color;
+    const c = CBPKG_COLORS.find(c => c.key === color);
+    return c ? c.hex : CBPKG_COLORS[0].hex;
+  }
+  function cbPkgColorDot(color){
+    return `<span class="pkg-color-dot" style="background:${cbPkgColorHex(color)}"></span>`;
+  }
+
+  async function cbLoadPackages(){
+    try{
+      const res = await window.storage.get(CBPKG_STORAGE_KEY, false);
+      if(res && res.value){
+        cbPackages = JSON.parse(res.value);
+      }else{
+        cbPackages = cbpkgDefaultPackages();
+        await cbSavePackages();
+      }
+    }catch(e){
+      cbPackages = cbpkgDefaultPackages();
+      await cbSavePackages();
+    }
+    cbRenderPackages();
+  }
+
+  async function cbSavePackages(){
+    try{
+      await window.storage.set(CBPKG_STORAGE_KEY, JSON.stringify(cbPackages), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function cbBuildPkgMessage(pkg){
+    const vars = {
+      package_name: pkg.name || '-',
+      team: pkg.team || '-',
+      exp: pkg.exp || '-',
+      link: pkg.link || '-',
+      password: pkg.password || '-',
+      guide: pkg.guide || '-',
+      email: ''
+    };
+    return (pkg.template || CBPKG_DEFAULT_TEMPLATE).replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
+  }
+
+  async function cbCopyForPackage(pkg){
+    if(pkg.count >= pkg.limit && !pkg.allowOverLimit){
+      showToast('🔴 แพ็กเกจนี้เต็มแล้ว');
+      return;
+    }
+    await copyText(cbBuildPkgMessage(pkg));
+    pkg.count += 1;
+    await cbSavePackages();
+    showToast('✅ คัดลอกข้อความเรียบร้อย');
+    cbRenderPackages();
+  }
+
+  function cbTogglePkgEdit(pkg){
+    pkg.editing = !pkg.editing;
+    cbRenderPackages();
+  }
+
+  async function cbSavePkgEdit(pkg){
+    const g = id => document.getElementById(id + '_' + pkg.id);
+    pkg.name = g('cf_name').value.trim() || pkg.name;
+    pkg.color = g('cf_color').value;
+    pkg.textColor = g('cf_textColor').value;
+    pkg.template = g('cf_template').value;
+    pkg.note = g('cf_note').value;
+    pkg.showNote = g('cf_showNote').checked;
+    const countVal = parseInt(g('cf_count').value, 10);
+    const limitVal = parseInt(g('cf_limit').value, 10);
+    const previewLinesVal = parseInt(g('cf_previewLines').value, 10);
+    pkg.count = isNaN(countVal) || countVal < 0 ? pkg.count : countVal;
+    pkg.limit = isNaN(limitVal) || limitVal < 1 ? pkg.limit : limitVal;
+    pkg.previewLines = isNaN(previewLinesVal) || previewLinesVal < 1 ? 4 : previewLinesVal;
+    pkg.editing = false;
+    await cbSavePackages();
+    showToast('💾 บันทึกแพ็กเกจแล้ว');
+    cbRenderPackages();
+  }
+
+  async function cbResetPkgCount(pkg){
+    pkg.count = 0;
+    await cbSavePackages();
+    showToast('🔄 รีเซ็ตจำนวนแล้ว');
+    cbRenderPackages();
+  }
+
+  async function cbDeletePkg(pkg){
+    if(!confirm('ลบแพ็กเกจ "' + pkg.name + '" ใช่หรือไม่?')) return;
+    cbPackages = cbPackages.filter(p => p.id !== pkg.id);
+    await cbSavePackages();
+    cbRenderPackages();
+  }
+
+  function cbOpenPkgPreview(pkg){
+    cbPkgPreviewText.textContent = cbBuildPkgMessage(pkg);
+    cbPkgPreviewOverlay.classList.add('show');
+  }
+
+  async function cbMovePkg(pkg, dir){
+    const idx = cbPackages.findIndex(p => p.id === pkg.id);
+    const newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= cbPackages.length) return;
+    [cbPackages[idx], cbPackages[newIdx]] = [cbPackages[newIdx], cbPackages[idx]];
+    await cbSavePackages();
+    cbRenderPackages();
+  }
+
+  function cbRenderPackages(){
+    if(cbPackages.length === 0){
+      cbPkgListEl.innerHTML = '<div class="empty-state">ยังไม่มีแพ็กเกจ กด "เพิ่มแพ็กเกจใหม่" เพื่อเริ่มต้น</div>';
+      renderDashboard();
+      return;
+    }
+    cbPkgListEl.innerHTML = '';
+    cbPackages.forEach((pkg, idx) => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      card.style.setProperty('--accent', cbPkgColorHex(pkg.color));
+
+      card.innerHTML = pkg.editing ? cbPkgEditTemplate(pkg) : cbPkgViewTemplate(pkg, idx, cbPackages.length);
+      cbPkgListEl.appendChild(card);
+
+      if(pkg.editing){
+        card.querySelector('.save-btn').addEventListener('click', () => cbSavePkgEdit(pkg));
+        card.querySelector('.cancel-btn').addEventListener('click', () => cbTogglePkgEdit(pkg));
+        card.querySelector('.delete-btn').addEventListener('click', () => cbDeletePkg(pkg));
+      } else {
+        card.querySelector('.pkg-move-up').addEventListener('click', () => cbMovePkg(pkg, -1));
+        card.querySelector('.pkg-move-down').addEventListener('click', () => cbMovePkg(pkg, 1));
+        card.querySelector('.edit-btn').addEventListener('click', () => cbTogglePkgEdit(pkg));
+        card.querySelector('.reset-btn').addEventListener('click', () => cbResetPkgCount(pkg));
+        card.querySelector('.copy-btn').addEventListener('click', () => cbCopyForPackage(pkg));
+        card.querySelector('.preview-btn').addEventListener('click', () => cbOpenPkgPreview(pkg));
+      }
+    });
+    renderDashboard();
+  }
+
+  function cbPkgTemplatePreview(pkg){
+    const n = pkg.previewLines || 4;
+    const lines = (pkg.template || '').split('\n').slice(0, n).join('\n');
+    return esc(lines);
+  }
+
+  function cbPkgViewTemplate(pkg, idx, total){
+    const full = pkg.count >= pkg.limit;
+    const disabled = full && !pkg.allowOverLimit;
+    const accent = cbPkgColorHex(pkg.color);
+    const badgeGradient = `linear-gradient(160deg, ${lighten(accent, 40)} 0%, ${accent} 100%)`;
+    const titleColor = pkg.textColor || 'inherit';
+    return `
+      <div class="card-head">
+        <div class="card-title" style="color:${titleColor};">${cbPkgColorDot(pkg.color)} ${esc(pkg.name)}</div>
+        <div class="pkg-reorder-btns">
+          <button class="pkg-move-up" ${idx === 0 ? 'disabled' : ''} title="เลื่อนขึ้น">▲</button>
+          <button class="pkg-move-down" ${idx === total - 1 ? 'disabled' : ''} title="เลื่อนลง">▼</button>
+        </div>
+        <span class="status-pill ${full ? 'status-full' : 'status-ok'}">${full ? '🔴 เต็มแล้ว' : '🟢 พร้อมใช้งาน'}</span>
+      </div>
+      <div class="pkg-panel">
+        <div class="pkg-panel-text">${cbPkgTemplatePreview(pkg)}</div>
+        <button class="pkg-stat-badge copy-btn" style="background:${badgeGradient};" ${disabled ? 'disabled' : ''} title="${disabled ? 'ใช้งานครบจำนวนแล้ว' : 'แตะเพื่อคัดลอกข้อความ'}">
+          <span class="pkg-stat-icon">📋</span>
+          <span class="pkg-stat-label">จำนวนที่<br>กดคัดลอก</span>
+          <span class="pkg-stat-value"><span class="big">${pkg.count}</span> <span class="small">/ ${pkg.limit}</span></span>
+        </button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-pink-style btn-compact preview-btn">👀 ตัวอย่าง</button>
+        <button class="btn btn-peach-style btn-compact edit-btn">✏️ แก้ไข</button>
+        <button class="btn btn-blue-style btn-compact reset-btn">🔄 รีเซ็ต</button>
+      </div>
+      ${(pkg.showNote !== false && pkg.note) ? `<div class="pkg-note">📝 ${esc(pkg.note)}</div>` : ''}
+    `;
+  }
+
+  function cbPkgEditTemplate(pkg){
+    return `
+      <div class="card-head">
+        <div class="card-title">${cbPkgColorDot(pkg.color)} แก้ไขแพ็กเกจ</div>
+      </div>
+      <div class="field">
+        <label>📌 ชื่อแพ็กเกจ</label>
+        <input id="cf_name_${pkg.id}" type="text" value="${esc(pkg.name)}">
+      </div>
+      <div class="field">
+        <div class="two-col-row">
+          <div>
+            <label>📌 จำนวนที่คัดลอกแล้ว</label>
+            <input id="cf_count_${pkg.id}" type="number" min="0" value="${pkg.count}">
+          </div>
+          <div>
+            <label>📌 จำนวนสูงสุด</label>
+            <input id="cf_limit_${pkg.id}" type="number" min="1" value="${pkg.limit}">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีการ์ด (กรอบ/จุด/กล่องคัดลอก)</label>
+        <div class="color-input-row">
+          <input type="color" id="cf_color_${pkg.id}" value="${cbPkgColorHex(pkg.color)}">
+          <span>เลือกสีอิสระได้ทุกโทน</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 สีตัวอักษรชื่อแพ็กเกจ</label>
+        <div class="color-input-row">
+          <input type="color" id="cf_textColor_${pkg.id}" value="${pkg.textColor || '#4A3238'}">
+          <span>เลือกสีตัวหนังสือได้อิสระ</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความ Template</label>
+        <textarea id="cf_template_${pkg.id}" rows="14">${esc(pkg.template)}</textarea>
+        <div class="hint">ตัวแปรที่ใช้ได้: {{package_name}} {{team}} {{exp}} {{link}} {{email}} {{password}} {{guide}}</div>
+      </div>
+      <div class="field">
+        <label>📌 จำนวนบรรทัดที่โชว์ในการ์ด (ตัวอย่างข้อความ)</label>
+        <input id="cf_previewLines_${pkg.id}" type="number" min="1" max="15" value="${pkg.previewLines || 4}">
+      </div>
+      <div class="field">
+        <label>📝 โน้ต (บันทึกส่วนตัว ไม่แสดงให้ลูกค้าเห็น)</label>
+        <textarea id="cf_note_${pkg.id}" rows="3" placeholder="เช่น เตือนตัวเอง, สถานะพิเศษ, ฯลฯ">${esc(pkg.note || '')}</textarea>
+        <div class="checkline">
+          <input type="checkbox" id="cf_showNote_${pkg.id}" ${pkg.showNote !== false ? 'checked' : ''}>
+          <label for="cf_showNote_${pkg.id}">แสดงกล่องโน้ตบนการ์ด</label>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:12px;">
+        <button class="btn btn-muted btn-compact cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact delete-btn btn-full-width">🗑️ ลบแพ็กเกจนี้</button>
+      </div>
+    `;
+  }
+
+  // Add MS package flow
+  const cbColorSwatches = document.getElementById('cbColorSwatches');
+  const newCbPkgColorPicker = document.getElementById('newCbPkgColorPicker');
+  CBPKG_COLORS.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (c.key === cbAddColorSelected ? ' selected' : '');
+    sw.style.background = c.hex;
+    sw.dataset.key = c.key;
+    sw.addEventListener('click', () => {
+      cbAddColorSelected = c.hex;
+      newCbPkgColorPicker.value = c.hex;
+      document.querySelectorAll('#cbPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+      sw.classList.add('selected');
+    });
+    cbColorSwatches.appendChild(sw);
+  });
+  newCbPkgColorPicker.addEventListener('input', () => {
+    cbAddColorSelected = newCbPkgColorPicker.value;
+    document.querySelectorAll('#cbPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+  });
+
+  document.getElementById('addCbPackageBtn').addEventListener('click', () => {
+    document.getElementById('newCbPkgName').value = '';
+    document.getElementById('newCbPkgLimit').value = '';
+    cbAddColorSelected = '#00A4EF';
+    newCbPkgColorPicker.value = '#00A4EF';
+    document.getElementById('newCbPkgTextColorPicker').value = '#4A3238';
+    document.querySelectorAll('#cbPkgAddOverlay .swatch').forEach(s => s.classList.remove('selected'));
+    cbPkgAddOverlay.classList.add('show');
+  });
+  document.getElementById('cbPkgCancelAddBtn').addEventListener('click', () => cbPkgAddOverlay.classList.remove('show'));
+  cbPkgAddOverlay.addEventListener('click', e => { if(e.target === cbPkgAddOverlay) cbPkgAddOverlay.classList.remove('show'); });
+
+  document.getElementById('cbPkgConfirmAddBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newCbPkgName').value.trim();
+    const limitVal = parseInt(document.getElementById('newCbPkgLimit').value, 10);
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อแพ็กเกจ');
+      return;
+    }
+    const pkg = {
+      id: 'cbpkg_' + Date.now(),
+      name: name,
+      color: cbAddColorSelected,
+      textColor: document.getElementById('newCbPkgTextColorPicker').value,
+      team: '',
+      exp: '',
+      link: '',
+      password: 'รอแอดมินกรอก',
+      guide: '',
+      template: CBPKG_DEFAULT_TEMPLATE,
+      limit: isNaN(limitVal) || limitVal < 1 ? 100 : limitVal,
+      count: 0,
+      allowOverLimit: false,
+      editing: true
+    };
+    cbPackages.push(pkg);
+    await cbSavePackages();
+    cbPkgAddOverlay.classList.remove('show');
+    cbRenderPackages();
+    showToast('✅ สร้างแพ็กเกจแล้ว กรอกรายละเอียดแล้วกดบันทึก');
+  });
+
+  document.getElementById('cbPkgClosePreviewBtn').addEventListener('click', () => cbPkgPreviewOverlay.classList.remove('show'));
+  cbPkgPreviewOverlay.addEventListener('click', e => { if(e.target === cbPkgPreviewOverlay) cbPkgPreviewOverlay.classList.remove('show'); });
+
+  cbLoadPackages();
+
+  // ---------- Microsoft: แบบส่วนตัว tool logic (multi-variant, mirrors Canva) ----------
+  const MS_VARIANTS_KEY = 'ms-variants-v1';
+
+  const MS_DEFAULT_TEMPLATE =
+`🪟 Microsoft 365 (แบบส่วนตัว) ✨
+
+📧 mail :
+{{email}}
+
+🔑 pass :
+รอแอดมินกรอก
+
+🔗 ลิงก์เข้าใช้งาน
+{{link}}
+
+🌷 เข้าได้แล้วรบกวนแคปภาพติดเมลมาให้แอดมินตรวจสอบ`;
+
+  const MS_DEFAULT_COLORS = {
+    accent: '#00A4EF',
+    copyLink: '#5EB6F5',
+    copyMsg: '#8E7CD9',
+    edit: '#FFE7CB',
+    preview: '#FFD9E8',
+    clear: '#DCE7FB'
+  };
+
+  function msColors(v){
+    return Object.assign({}, MS_DEFAULT_COLORS, v.colors || {});
+  }
+
+  function defaultMsVariants(){
+    return [
+      { id: 'ms_' + Date.now() + '_1', name: '15 วัน', link: '', template: MS_DEFAULT_TEMPLATE, colors: Object.assign({}, MS_DEFAULT_COLORS), editing: false },
+      { id: 'ms_' + Date.now() + '_2', name: '30 วัน', link: '', template: MS_DEFAULT_TEMPLATE, colors: Object.assign({}, MS_DEFAULT_COLORS), editing: false }
+    ];
+  }
+
+  let msVariants = [];
+  const msVariantListEl = document.getElementById('msVariantList');
+  const msOverlay = document.getElementById('msOverlay');
+  const msPreviewText = document.getElementById('msPreviewText');
+  const msAddOverlay = document.getElementById('msAddOverlay');
+
+  async function msLoadVariants(){
+    try{
+      const res = await window.storage.get(MS_VARIANTS_KEY, false);
+      if(res && res.value){
+        msVariants = JSON.parse(res.value);
+      }else{
+        msVariants = defaultMsVariants();
+        await msSaveVariants();
+      }
+    }catch(e){
+      msVariants = defaultMsVariants();
+      await msSaveVariants();
+    }
+    msRenderVariants();
+  }
+
+  async function msSaveVariants(){
+    try{
+      await window.storage.set(MS_VARIANTS_KEY, JSON.stringify(msVariants), false);
+    }catch(e){
+      showToast('⚠️ บันทึกไม่สำเร็จ ลองอีกครั้ง');
+    }
+  }
+
+  function msBuildMessage(v, email){
+    return (v.template || MS_DEFAULT_TEMPLATE)
+      .replace(/\{\{email\}\}/g, email || '-')
+      .replace(/\{\{link\}\}/g, v.link || '-');
+  }
+
+  function msToggleEdit(v){
+    v.editing = !v.editing;
+    msRenderVariants();
+  }
+
+  async function msSaveVariant(v){
+    const g = id => document.getElementById(id + '_' + v.id);
+    v.name = g('msName').value.trim() || v.name;
+    v.link = g('msLink').value.trim();
+    v.template = g('msTemplate').value;
+    v.colors = {
+      accent: g('msColorAccent').value,
+      copyLink: g('msColorCopyLink').value,
+      copyMsg: g('msColorCopyMsg').value,
+      edit: g('msColorEdit').value,
+      preview: g('msColorPreview').value,
+      clear: g('msColorClear').value
+    };
+    v.editing = false;
+    await msSaveVariants();
+    showToast('💾 บันทึกแล้ว');
+    msRenderVariants();
+  }
+
+  async function msDeleteVariant(v){
+    if(!confirm('ลบรายการ "' + v.name + '" ใช่หรือไม่?')) return;
+    msVariants = msVariants.filter(x => x.id !== v.id);
+    await msSaveVariants();
+    msRenderVariants();
+  }
+
+  function msFindMatchingPackage(v){
+    const m = v.name.match(/(15|30)\s*วัน/);
+    if(!m) return null;
+    const dayLabel = m[1] + ' วัน';
+    return msPackages.find(p => p.name.includes(dayLabel)) || null;
+  }
+
+  async function msBumpMatchingPackageCount(v){
+    const pkg = msFindMatchingPackage(v);
+    if(!pkg) return;
+    if(pkg.count < pkg.limit || pkg.allowOverLimit){
+      pkg.count += 1;
+      await msSavePackages();
+      msRenderPackages();
+    }
+  }
+
+  async function msCopyLink(v){
+    if(!v.link){
+      showToast('⚠️ ยังไม่ได้ใส่ลิงก์');
+      return;
+    }
+    await copyText(v.link);
+    showToast('✅ คัดลอกลิงก์เรียบร้อย');
+    await msBumpMatchingPackageCount(v);
+    msRenderVariants();
+  }
+
+  async function msCopyMessage(v){
+    const emailInput = document.getElementById('msEmail_' + v.id);
+    const email = emailInput ? emailInput.value.trim() : '';
+    if(!email){
+      showToast('⚠️ กรุณาวางอีเมลลูกค้าก่อน');
+      if(emailInput) emailInput.focus();
+      return;
+    }
+    await copyText(msBuildMessage(v, email));
+    showToast('✅ คัดลอกข้อความเรียบร้อย');
+    if(emailInput) emailInput.value = '';
+    await msBumpMatchingPackageCount(v);
+    msRenderVariants();
+  }
+
+  function msOpenPreview(v){
+    const emailInput = document.getElementById('msEmail_' + v.id);
+    const email = emailInput ? emailInput.value.trim() : '';
+    msPreviewText.textContent = msBuildMessage(v, email);
+    msOverlay.classList.add('show');
+  }
+
+  function msSvSharedCountBadge(v){
+    const pkg = msFindMatchingPackage(v);
+    if(!pkg) return '';
+    return `<div class="sv-shared-count">👤 ${pkg.count}/${pkg.limit} <span class="sv-shared-count-label">(นับรวมกับแบบเมลลูกค้า)</span></div>`;
+  }
+
+  function msViewTemplate(v){
+    const c = msColors(v);
+    return `
+      <div class="card-head"><div class="card-title">🔗 ${esc(v.name)}</div></div>
+      ${msSvSharedCountBadge(v)}
+      <div class="link-display ${v.link ? '' : 'empty'}">${v.link ? esc(v.link) : 'ยังไม่ได้ใส่ลิงก์'}</div>
+      <div class="btn-row">
+        <button class="btn btn-md ms-copylink-btn" style="background:${c.copyLink}; color:#fff; box-shadow:none;">📋 คัดลอกลิงก์</button>
+        <button class="btn ms-edit-btn" style="flex:0 0 auto; width:auto; padding:11px 18px; background:${c.edit}; color:var(--text);">✏️</button>
+      </div>
+      <div class="sv-divider">📧 วางอีเมลลูกค้า</div>
+      <div class="field">
+        <input id="msEmail_${v.id}" type="text" placeholder="customer@email.com" autocomplete="off" autocapitalize="off">
+      </div>
+      <button class="btn btn-md ms-copymsg-btn" style="background:${c.copyMsg}; color:#fff; box-shadow:none;">📋 คัดลอกข้อความทั้งหมด</button>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="btn btn-compact ms-preview-btn" style="background:${c.preview}; color:var(--text);">👀 ดูตัวอย่าง</button>
+        <button class="btn btn-compact ms-clear-btn" style="background:${c.clear}; color:var(--text);">🗑️ ล้างอีเมล</button>
+      </div>
+    `;
+  }
+
+  function msEditTemplate(v){
+    const c = msColors(v);
+    return `
+      <div class="card-head"><div class="card-title">✏️ แก้ไข ${esc(v.name)}</div></div>
+      <div class="field">
+        <label>📌 ชื่อรายการ</label>
+        <input id="msName_${v.id}" type="text" value="${esc(v.name)}">
+      </div>
+      <div class="field">
+        <label>📌 ลิงก์</label>
+        <input id="msLink_${v.id}" type="text" value="${esc(v.link)}">
+      </div>
+      <div class="field">
+        <label>📌 สีทุกส่วน (แก้ไขได้อิสระ)</label>
+        <div class="color-grid">
+          <div class="color-swatch-field">
+            <input type="color" id="msColorAccent_${v.id}" value="${c.accent}">
+            <span>กรอบการ์ด</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msColorCopyLink_${v.id}" value="${c.copyLink}">
+            <span>คัดลอกลิงก์</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msColorCopyMsg_${v.id}" value="${c.copyMsg}">
+            <span>คัดลอกข้อความ</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msColorEdit_${v.id}" value="${c.edit}">
+            <span>ปุ่มแก้ไข</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msColorPreview_${v.id}" value="${c.preview}">
+            <span>ปุ่มตัวอย่าง</span>
+          </div>
+          <div class="color-swatch-field">
+            <input type="color" id="msColorClear_${v.id}" value="${c.clear}">
+            <span>ปุ่มล้างอีเมล</span>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>📌 ข้อความฟอร์ม</label>
+        <textarea id="msTemplate_${v.id}" rows="14">${esc(v.template)}</textarea>
+        <div class="hint">ใช้ <b>{{email}}</b> แทนตำแหน่งอีเมลลูกค้า และ <b>{{link}}</b> แทนตำแหน่งลิงก์</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-muted btn-compact ms-cancel-btn">ยกเลิก</button>
+        <button class="btn btn-save-style btn-compact ms-save-btn">💾 บันทึก</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-ghost ms-reset-btn" style="width:100%;">↩️ กลับไปใช้ข้อความเริ่มต้น</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn btn-danger btn-compact ms-delete-btn btn-full-width">🗑️ ลบรายการนี้</button>
+      </div>
+    `;
+  }
+
+  function msRenderVariants(){
+    if(msVariants.length === 0){
+      msVariantListEl.innerHTML = '<div class="empty-state">ยังไม่มีรายการ กด ➕ มุมขวาบนเพื่อเริ่มต้น</div>';
+      return;
+    }
+    msVariantListEl.innerHTML = '';
+    msVariants.forEach(v => {
+      const card = document.createElement('section');
+      card.className = 'card';
+      card.style.setProperty('--accent', msColors(v).accent);
+      card.innerHTML = v.editing ? msEditTemplate(v) : msViewTemplate(v);
+      msVariantListEl.appendChild(card);
+
+      if(v.editing){
+        card.querySelector('.ms-save-btn').addEventListener('click', () => msSaveVariant(v));
+        card.querySelector('.ms-cancel-btn').addEventListener('click', () => msToggleEdit(v));
+        card.querySelector('.ms-reset-btn').addEventListener('click', () => {
+          document.getElementById('msTemplate_' + v.id).value = MS_DEFAULT_TEMPLATE;
+        });
+        card.querySelector('.ms-delete-btn').addEventListener('click', () => msDeleteVariant(v));
+      } else {
+        card.querySelector('.ms-edit-btn').addEventListener('click', () => msToggleEdit(v));
+        card.querySelector('.ms-copylink-btn').addEventListener('click', () => msCopyLink(v));
+        card.querySelector('.ms-copymsg-btn').addEventListener('click', () => msCopyMessage(v));
+        card.querySelector('.ms-preview-btn').addEventListener('click', () => msOpenPreview(v));
+        card.querySelector('.ms-clear-btn').addEventListener('click', () => {
+          const emailInput = document.getElementById('msEmail_' + v.id);
+          if(emailInput){ emailInput.value = ''; emailInput.focus(); }
+        });
+      }
+    });
+  }
+
+  document.getElementById('addMsVariantBtn').addEventListener('click', () => {
+    document.getElementById('newMsVariantName').value = '';
+    msAddOverlay.classList.add('show');
+  });
+  document.getElementById('msCancelAddBtn').addEventListener('click', () => msAddOverlay.classList.remove('show'));
+  msAddOverlay.addEventListener('click', e => { if(e.target === msAddOverlay) msAddOverlay.classList.remove('show'); });
+
+  document.getElementById('msConfirmAddBtn').addEventListener('click', async () => {
+    const name = document.getElementById('newMsVariantName').value.trim();
+    if(!name){
+      showToast('⚠️ กรุณากรอกชื่อรายการ');
+      return;
+    }
+    const v = { id: 'ms_' + Date.now(), name, link: '', template: MS_DEFAULT_TEMPLATE, colors: Object.assign({}, MS_DEFAULT_COLORS), editing: true };
+    msVariants.push(v);
+    await msSaveVariants();
+    msAddOverlay.classList.remove('show');
+    msRenderVariants();
+    showToast('✅ สร้างรายการแล้ว กรอกรายละเอียดแล้วกดบันทึก');
+  });
+
+  document.getElementById('msClosePreviewBtn').addEventListener('click', ()=>{
+    msOverlay.classList.remove('show');
+  });
+  msOverlay.addEventListener('click', (e)=>{
+    if(e.target === msOverlay) msOverlay.classList.remove('show');
+  });
+
+  msLoadVariants();
+
+})();
+</script>
+
+</body>
+</html>
